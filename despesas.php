@@ -61,6 +61,64 @@
               </div>
             </div>
     </div>
+<!--==========================================seleção de dados==============================================-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="pasta col-md-12">
+                <div class="tabbable" id="tabs-450075">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#tab1" data-toggle="tab">Despesas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tab2" data-toggle="tab">Crédito</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active abas" id="tab1">
+                           <!--inicio tabela-->
+                           <table class="table">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">First</th>
+                                  <th scope="col">Last</th>
+                                  <th scope="col">Handle</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>Mark</td>
+                                  <td>Ottosdfdsfdsfdsfds</td>
+                                  <td>@mdofdfsfsfdsfdsfs</td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">2</th>
+                                  <td>Jacob</td>
+                                  <td>Thornton</td>
+                                  <td>@fat</td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">3</th>
+                                  <td>Larry</td>
+                                  <td>the Bird</td>
+                                  <td>@twitter</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                           <!--fim tabela-->
+                        </div>
+                        <div class="tab-pane abas" id="tab2">
+                            <!--inicio tabela-->
+                            <p>pasta 2</p>
+                            <!--fim tabela-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <!--==========================================insert tabela=================================================-->
 <?php
     

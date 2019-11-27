@@ -16,7 +16,7 @@
         <a class="nav-link" href="index.php">Home <span class="sr-only">(Página atual)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="despesas.php">Despesas</a>
+        <a class="nav-link" href="despesas.php">Movimentações-$</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Preços</a>

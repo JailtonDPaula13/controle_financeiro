@@ -7,7 +7,7 @@
 /*font-family: 'Dancing Script', cursive;*/
 @import url('https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap');
 /*font-family: 'Ibarra Real Nova', serif;*/
-/*=============================inicio===================================*/
+/*=============================inicio===========================================================*/
 #principio{
     background-color: rgb(67, 91, 74);
     color: #fff;
@@ -16,7 +16,7 @@
     padding:5px;
     font-family: 'Dancing Script', cursive;
 }
-/*===============================botão modal==================================================*/
+/*===============================botão modal====================================================*/
 .caddesp{
     border:none;
     color:#fff;
@@ -31,11 +31,11 @@
     border-radius: 10px;
     box-shadow:  0 0 4px rgba(214, 181, 12, 1);
 }
-/*====================================body==========================================*/
+/*====================================body======================================================*/
 body{
     background-color: #292b33;
 }
-/*===================================modal===================================================*/
+/*===================================modal======================================================*/
 .modal-body{
      background-color: #006eb6;
 }
@@ -56,4 +56,36 @@ input{
 input:hover{
     border: 2px solid rgb(214, 181, 12);
     box-shadow: 0 0 2px #000;
+}
+/*=====================================pasta====================================================*/
+.pasta{
+    margin-top: 15px;
+    padding: 5px;
+}
+.abas{
+    background-color: #fff;
+    box-shadow: 2px 2px 5px black;
+    width: 100%;
+    overflow-x:scroll; 
+}
+
+a{
+    color: #fff;
+    font-family: 'Ibarra Real Nova', serif;
+    font-size: 16pt;
+    
+}
+a:hover{
+    color: #fff;
+}
+/*===================================tabelas========================================================*/
+.list-disp{
+    display: inline-block;
+    width:25%;
+    border-left: 1px solid #000;
+    text-align: center;
+}
+#list-val{
+    width: 20%;
+    border-left: none;
 }
