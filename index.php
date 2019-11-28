@@ -5,12 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Minhas Finanças</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="shortcut icon" href="/imagens/cifrao_origen.png" >
 </head>
 <dody>
    <?php
      require_once('navbar.php');
     ?>
+<!--Menus=================================================================-->
+<section class="container-fluid">
+    <div class="row artigos">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <img src="imagens/salario-rec.jpg" alt="salário" width="40%" class="rounded-circle img_cent">
+            <h3 class="mov_text"><b>Movimentações Financeira</b></h3>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%"> Despesa</li>
+            <p>text</p>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%"> Crédito</li>
+            <p>text</p>    
+        </div>
+    </div>
+</section>
 
 <!--SCRIPTS===============================================================-->
     

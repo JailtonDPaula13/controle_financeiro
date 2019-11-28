@@ -69,13 +69,13 @@ input:hover{
     overflow-x:auto; 
 }
 
-a{
+.d_aba{
     color: #fff;
     font-family: 'Ibarra Real Nova', serif;
     font-size: 16pt;
     
 }
-a:hover{
+.d_aba:hover{
     color: #fff;
 }
 /*===================================tabelas========================================================*/
@@ -84,4 +84,12 @@ th{
 }
 td{
     white-space: nowrap;
+}
+.pesquis{
+    color: #000;
+    margin-left: 10px;
+}
+.pesquisaDI{
+    margin: 8px;
+    border-bottom: 2px solid #000;
 }
