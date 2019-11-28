@@ -1,3 +1,6 @@
+<?php
+    require_once "conexao/conect.php";
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -80,30 +83,31 @@
                            <table class="table">
                               <thead class="thead-dark">
                                 <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">First</th>
-                                  <th scope="col">Last</th>
-                                  <th scope="col">Handle</th>
+                                  <th scope="col">Valor</th>
+                                  <th scope="col">Descrição</th>
+                                  <th scope="col">Local</th>
+                                  <th scope="col">Data</th>
                                 </tr>
                               </thead>
                               <tbody>
+                                <!--Inicio do loop-->
+                                <?php
+                                  
+                                  $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes order by 4;");
+                                  if(!$v_consulta)
+                                  {
+                                      echo("Erro de conexão D:");
+                                  }
+                                  else
+                                  {
+                                      while($v_resultado = mysqli_fetch_row($v_consulta))
+                                      {                                  
+                                 ?>
                                 <tr>
-                                  <th scope="row">1</th>
-                                  <td>Mark</td>
-                                  <td>Ottosdfdsfdsfdsfds</td>
-                                  <td>@mdofdfsfsfdsfdsfs</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">2</th>
-                                  <td>Jacob</td>
-                                  <td>Thornton</td>
-                                  <td>@fat</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Larry</td>
-                                  <td>the Bird</td>
-                                  <td>@twitter</td>
+                                  <th scope="row"><?php print_r('R$: '.$v_resultado[1]);?></th>
+                                  <td><?php print_r($v_resultado[2]);?></td>
+                                  <td><?php print_r($v_resultado[3]);?></td>
+                                  <td><?php print_r($v_resultado[4]); }}?></td>
                                 </tr>
                               </tbody>
                             </table>
@@ -122,14 +126,13 @@
 <!--==========================================insert tabela=================================================-->
 <?php
     
-    include_once "conexao/conect.php";
     
-    $valor    =isset($_POST['real'])?$_POST['real']:null;
+    $valor    =isset($_POST['real'])?$_POST['real']:"";
     $descricao=isset($_POST['descricao'])?$_POST['descricao']:null;
     $local    =isset($_POST['local'])?$_POST['local']:null;
     $data     =isset($_POST['data'])?$_POST['data']:null;
     
-    $insert   =mysqli_query($conexao_um,"insert into tb_despesa_mes values(null,'$valor','$descricao','$local','$data');");
+    $insert   =mysqli_query($conexao_um,"call pr_despesas ('$valor','$descricao','$local','$data');");
 ?>
 </div>
 <!--SCRIPTS===============================================================-->

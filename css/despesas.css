@@ -66,7 +66,7 @@ input:hover{
     background-color: #fff;
     box-shadow: 2px 2px 5px black;
     width: 100%;
-    overflow-x:scroll; 
+    overflow-x:auto; 
 }
 
 a{
@@ -79,13 +79,9 @@ a:hover{
     color: #fff;
 }
 /*===================================tabelas========================================================*/
-.list-disp{
-    display: inline-block;
-    width:25%;
-    border-left: 1px solid #000;
-    text-align: center;
+th{
+    white-space: nowrap;
 }
-#list-val{
-    width: 20%;
-    border-left: none;
+td{
+    white-space: nowrap;
 }
