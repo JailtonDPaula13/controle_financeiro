@@ -15,13 +15,13 @@
 <!--Menus=================================================================-->
 <section class="container-fluid">
     <div class="row artigos">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
             <img src="imagens/salario-rec.jpg" alt="salário" width="40%" class="rounded-circle img_cent">
             <h3 class="mov_text"><b>Movimentações Financeira</b></h3>
             <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%"> Despesa</li>
-            <p>text</p>
+            <p>Cadastro de despesa com definição de valores descrição, local e data tendo visão geral com soma de valores gasto das despesa com opção de filtra por data .</p>
             <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%"> Crédito</li>
-            <p>text</p>    
+            <p>Cadastro do crédito com definição de valores, descrição e data tendo visão geral com soma de valores podendo filtra por data.</p>    
         </div>
     </div>
 </section>

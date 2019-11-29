@@ -1,6 +1,49 @@
 <?php
     require_once "conexao/conect.php";
-?>
+
+//<!--===================consulta data e lista de despesas=======================================-->
+
+    if(isset($_POST['pesquisaD1']) and isset($_POST['pesquisaD2']) and $_POST['pesquisaD1'] == $_POST['pesquisaD2'])
+    {
+//                                       echo("valores iguais");
+       $v_data_inicial = $_POST['pesquisaD1'];
+       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data = '$v_data_inicial';");
+       $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes where data = '$v_data_inicial' order by 5;");
+    }
+    elseif(isset($_POST['pesquisaD1']) and isset($_POST['pesquisaD2']) and $_POST['pesquisaD1'] < $_POST['pesquisaD2'])
+    {  
+//                                       echo("valores <>");
+       $v_data_inicial = $_POST['pesquisaD1'];
+       $v_data_final   = $_POST['pesquisaD2'];
+       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data between '$v_data_inicial' and '$v_data_final'");
+       $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes where data between '$v_data_inicial' and '$v_data_final' order by 5;"); 
+    }
+  elseif(isset($_POST['pesquisaD1']) and $_POST['pesquisaD2'] == null)
+    {
+//                                       echo("valores um");
+       $v_data_inicial = $_POST['pesquisaD1'];
+       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data = '$v_data_inicial';");
+       $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes where data = '$v_data_inicial' order by 5;");
+    }
+  elseif(isset($_POST['pesquisaD1']) and isset($_POST['pesquisaD2']) and $_POST['pesquisaD1'] > $_POST['pesquisaD2'])
+    {  
+//                                       echo("valores troc");
+       $v_data_inicial = $_POST['pesquisaD1'];
+       $v_data_final   = $_POST['pesquisaD2'];
+       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data between '$v_data_final' and '$v_data_inicial'");
+       $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes where data between '$v_data_final' and '$v_data_inicial' order by 5;");
+    }
+  else
+    {  
+//                                       echo("valores troc");
+       $v_data_inicial = isset($_POST['pesquisaD1'])?$_POST['pesquisaD1']:null;
+       $v_data_final   = isset($_POST['pesquisaD2'])?$_POST['pesquisaD2']:null;
+       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes;");
+       $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes order by 5;");
+    }
+  $v_resltotal = mysqli_fetch_row($v_total);
+  ?>
+<!--===================fim consulta data e lista de despesas=======================================-->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -26,7 +69,7 @@
         </center>
     </div>
     </div>
-<!--=======================================================================================-->
+<!--==============================modal=========================================================-->
 <div class="row">
     <div class="col-6 col-sm-6 col-md-6 ">
        <!-- Botão para acionar modal -->
@@ -96,7 +139,7 @@
                   </div>
                 </div>
     </div>
-<!--==========================================seleção de dados==============================================-->
+<!--==========================================seleção de dados abas==============================================-->
     <div class="container-fluid">
         <div class="row">
             <div class="pasta col-md-12">
@@ -111,24 +154,25 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active abas" id="tab1">
-                           <!--inicio tabela-->
+<!--=============================inicio tabelas========================================================================-->
+                 <!--===========consulta tabela despesas=========-->
                            <table class="table">
-                              <form>
+                              <form action="despesas.php" method="post">
                                   <div class="row">
                                       <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                                           <label class="pesquis">De:</label>
-                                          <input name="pesquisaD" id="pesquisaD" type = text placeholder="00/00/00" class="pesquisaDI">
+                                          <input name="pesquisaD1" id="pesquisaD1" type = date class="pesquisaDI" required>
                                       </div>
                                       <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                          <label class="pesquis">A:</label>
-                                          <input name="pesquisaD" id="pesquisaD" type = text placeholder="00/00/00" class="pesquisaDI">
+                                          <label class="pesquis">A:&nbsp;&nbsp;</label>
+                                          <input name="pesquisaD2" id="pesquisaD2" type = date class="pesquisaDI">
                                       </div>
-                                      <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
-                                          <button type="submit" class="pesquisaDI">Pesquisa</button>
+                                      <div class="col-4 col-sm-4 col-md-4 col-lg-1 col-xl-1">
+                                          <button type="submit" class="pesquisaB"><img src="imagens/tempo-pq.png" alt="tempo" width="60%"></button>
                                       </div>
-                                      
                                   </div>
                               </form>
+                               <!--========inicio primeira tabela==========-->
                               <thead class="thead-dark">
                                 <tr>
                                   <th scope="col">Valor</th>
@@ -138,10 +182,8 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <!--Inicio do loop-->
                                 <?php
-                                  
-                                  $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes order by 4;");
+                                  //$v_consulta configurado no incio -- whie permanece para visualização sem erro
                                   if(!$v_consulta)
                                   {
                                       echo("Erro de conexão D:");
@@ -158,11 +200,20 @@
                                   <td><?php print_r($v_resultado[4]); }}?></td>
                                 </tr>
                               </tbody>
+                            <!--========total tabela de despesa===============-->
+                              <tbody class="thead-dark">
+                               <tr>
+                                  <th scope="col"><?php print_r('R$: '.$v_resltotal[0]); ?></th>
+                                  <th scope="col"></th>
+                                  <th scope="col"></th>
+                                  <th scope="col"></th>
+                                </tr>
+                              </tbody>
                             </table>
-                           <!--fim tabela-->
                         </div>
+                        <!--=====fim primeira tabela despesa=====-->
                         <div class="tab-pane abas" id="tab2">
-                            <!--inicio tabela-->
+            <!--===============inicio tabela dois===================-->
                             <table class="table">
                               <thead class="thead-dark">
                                 <tr>
