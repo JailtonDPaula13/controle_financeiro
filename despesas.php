@@ -42,8 +42,50 @@
        $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes order by 5;");
     }
   $v_resltotal = mysqli_fetch_row($v_total);
+//<!--===================fim consulta data e lista de despesas=======================================-->
+//<!--===================consulta data e lista de crédito=======================================-->
+
+    if(isset($_POST['pesquisaD3']) and isset($_POST['pesquisaD4']) and $_POST['pesquisaD3'] == $_POST['pesquisaD4'])
+    {
+//                                       echo("valores iguais");
+       $v_data_inicial_C = $_POST['pesquisaD3'];
+       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where data = '$v_data_inicial_C';");
+       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where data = '$v_data_inicial_C' order by 4;");
+    }
+    elseif(isset($_POST['pesquisaD3']) and isset($_POST['pesquisaD4']) and $_POST['pesquisaD3'] < $_POST['pesquisaD4'])
+    {  
+//                                       echo("valores <>");
+       $v_data_inicial_C = $_POST['pesquisaD3'];
+       $v_data_final   = $_POST['pesquisaD4'];
+       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where data between '$v_data_inicial_C' and '$v_data_final'");
+      $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where data between '$v_data_inicial_C' and '$v_data_final' order by 4;");
+    }
+  elseif(isset($_POST['pesquisaD3']) and $_POST['pesquisaD4'] == null)
+    {
+//                                       echo("valores um");
+       $v_data_inicial_C = $_POST['pesquisaD3'];
+       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where data = '$v_data_inicial_C';");
+       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where data = '$v_data_inicial_C' order by 4;");
+    }
+  elseif(isset($_POST['pesquisaD3']) and isset($_POST['pesquisaD4']) and $_POST['pesquisaD3'] > $_POST['pesquisaD4'])
+    {  
+//                                       echo("valores troc");
+       $v_data_inicial_C = $_POST['pesquisaD3'];
+       $v_data_final   = $_POST['pesquisaD4'];
+       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where data between '$v_data_final' and '$v_data_inicial_C'");
+       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where data between '$v_data_final' and '$v_data_inicial_C' order by 4;");
+    }
+  else
+    {  
+//                                       echo("valores troc");
+       $v_data_inicial_C = isset($_POST['pesquisaD3'])?$_POST['pesquisaD3']:null;
+       $v_data_final   = isset($_POST['pesquisaD4'])?$_POST['pesquisaD4']:null;
+       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes;");
+       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes order by 4;");
+    }
+  $v_resltotal_C = mysqli_fetch_row($v_total_h);
+//<!--===================fim consulta data e lista de crédito=======================================-->
   ?>
-<!--===================fim consulta data e lista de despesas=======================================-->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -213,7 +255,23 @@
                         </div>
                         <!--=====fim primeira tabela despesa=====-->
                         <div class="tab-pane abas" id="tab2">
-            <!--===============inicio tabela dois===================-->
+            <!--===============inicio pesquisa tabela dois===================-->
+                            <form action="despesas.php" method="post">
+                                  <div class="row">
+                                      <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                          <label class="pesquis">De:</label>
+                                          <input name="pesquisaD3" id="pesquisaD3" type = date class="pesquisaDI" required>
+                                      </div>
+                                      <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                          <label class="pesquis">A:&nbsp;&nbsp;</label>
+                                          <input name="pesquisaD4" id="pesquisaD4" type = date class="pesquisaDI">
+                                      </div>
+                                      <div class="col-4 col-sm-4 col-md-4 col-lg-1 col-xl-1">
+                                          <button name="click" type="submit" class="pesquisaB"><img src="imagens/tempo-pq.png" alt="tempo" width="60%"></button>
+                                      </div>
+                                  </div>
+                              </form>
+                       <!--=============tabela dois=================-->
                             <table class="table">
                               <thead class="thead-dark">
                                 <tr>
@@ -226,20 +284,28 @@
                                 <!--Inicio do loop-->
                                 <?php
                                   
-                                  $v_consulta = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes order by 4;");
-                                  if(!$v_consulta)
+                                  
+                                  if(!$v_consulta_C)
                                   {
                                       echo("Erro de conexão D:");
                                   }
                                   else
                                   {
-                                      while($v_resultado = mysqli_fetch_row($v_consulta))
+                                      while($v_resultado_C = mysqli_fetch_row($v_consulta_C))
                                       {                                  
                                  ?>
                                 <tr>
-                                  <th scope="row"><?php print_r('R$: '.$v_resultado[1]);?></th>
-                                  <td><?php print_r($v_resultado[2]);?></td>
-                                  <td><?php print_r($v_resultado[3]);}}?></td>
+                                  <th scope="row"><?php print_r('R$: '.$v_resultado_C[1]);?></th>
+                                  <td><?php print_r($v_resultado_C[2]);?></td>
+                                  <td><?php print_r($v_resultado_C[3]);}}?></td>
+                                </tr>
+                              </tbody>
+                                <!--===========total tabela dois crédito================-->
+                              <tbody class="thead-dark">
+                               <tr>
+                                  <th scope="col"><?php print_r('R$: '.$v_resltotal_C[0]); ?></th>
+                                  <th scope="col"></th>
+                                  <th scope="col"></th>
                                 </tr>
                               </tbody>
                             </table>
