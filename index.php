@@ -13,6 +13,7 @@
      require_once('navbar.php');
     ?>
 <!--Menus=================================================================-->
+<!--MOVIMENTAÇÃO-->
 <section class="container-fluid">
     <div class="row artigos">
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
@@ -24,7 +25,19 @@
             <p>Cadastro do crédito com definição de valores, descrição e data tendo visão geral com soma de valores podendo filtra por data.</p>    
         </div>
     </div>
+<!--VISÕA GERAL-->
+    <div class="row artigosv">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
+            <img src="imagens/visao-rec.jpg" alt="salário" width="40%" class="rounded-circle img_centV">
+            <h3 class="mov_textV"><b>Visão Geral</b></h3>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Projeção diária</li>
+            <p>Projeção de gasto diários, onde definir quanto pode ser gasto por dia para que não tenha despesas no mês seguinte referente a gasto do mês anterior.</p>    
+        </div>
+    </div>
 </section>
+
 
 <!--SCRIPTS===============================================================-->
     

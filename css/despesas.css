@@ -17,23 +17,23 @@
     font-family: 'Dancing Script', cursive;
 }
 /*===============================botão modal====================================================*/
-.caddesp{
+.botaoModal{
     border:none;
     color:#fff;
     text-shadow: 0 0 2px #000;
-    border: 2px solid #006eb6;
+    border: 2px solid #005389;
     background-color: transparent;
     transition: 0.5s;
     font-family: 'Ibarra Real Nova', serif;
 }
-.caddesp:hover{
+.botaoModal:hover{
     border: 2px solid #006eb6;
     border-radius: 10px;
     box-shadow:  0 0 4px rgba(214, 181, 12, 1);
 }
 /*====================================body======================================================*/
 body{
-    background-color: #292b33;
+    background-color: rgb(0, 22, 74);
 }
 /*===================================modal======================================================*/
 .modal-body{
@@ -93,7 +93,19 @@ td{
     margin: 8px;
     border-bottom: 2px solid #000;
 }
-.pesquisaB{
+.botaoPesquisaData{
     margin: 10px;
-    border: 2px solid #006eb6;
+    border: 2px solid #005389;
+}
+.table{
+    font-family: 'Ibarra Real Nova', serif;
+}
+.linhaTabela:hover{
+    background-color: #005389;
+    color: #fff;
+    text-shadow: 0 0 1px #000;
+}
+.cabecalhoTabela{
+    background-color:#002885;
+    color: #fff;
 }

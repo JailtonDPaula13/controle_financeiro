@@ -15,6 +15,12 @@
    {
        echo("teste de erro");
    }
+         //delete 
+   $conexao_seis = mysqli_connect('localhost','root','','db_money');
+   if(!$conexao_um)
+   {
+       echo("teste de erro");
+   }
    //crédito
    $conexao_tres = mysqli_connect('localhost','root','','db_money');
    if(!$conexao_um)
@@ -26,4 +32,5 @@
    {
        echo("teste de erro");
    }
+   
 ?>
