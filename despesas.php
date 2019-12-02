@@ -117,7 +117,7 @@
 
 //<!--===================fim consulta data e lista de crédito=======================================-->
 //=======================================aba crédito ou despesa ao carregar?===============================
-      if(isset($_POST['clickC']) or isset($_POST['click']) or isset($_POST['click3']))
+      if(isset($_POST['clickC']) or isset($_POST['click']) or isset($_POST['click3']) or isset($_POST['click4']))
          {
             $v_abaC = 'active';
             $v_abaD = null;
@@ -127,7 +127,7 @@
           $v_abaD = 'active';
           $v_abaC = null;
          }
-      unset($_POST['clickC'], $_POST['click'], $_POST['click3']);
+      unset($_POST['clickC'], $_POST['click'], $_POST['click3'],$_POST['click4']);
    
   ?>
 <!DOCTYPE html>
@@ -145,16 +145,6 @@
         require_once('navbar.php');
     ?>
 <div class="container-fluid">   
-<!--=======================================================================================-->
-    <div class="row">
-    <div class="col-12" style="padding:0;">
-        <center>
-        <h5 id='principio'>
-            “Quando saímos do foco, esquecemos que são nossos sonhos que estão em jogo, deixamos de lado muitas coisas importantes, e acabamos colocando em risco tudo que conquistamos.”
-        </h5>
-        </center>
-    </div>
-    </div>
 <!--==============================modal=========================================================-->
 <div class="row">
     <div class="col-6 col-sm-6 col-md-6 ">
@@ -218,7 +208,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                        <button type="submit" class="btn btn-primary" name="click4" value="1">Salvar mudanças</button>
                       </div>
                       </form>
                     </div>

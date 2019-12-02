@@ -17,8 +17,8 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="index.php">HOME <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link active" href="despesas.php">MOVIMENTAÇÃO</a>
-      <a class="nav-item nav-link active" href="#">VISÃO GERAL</a>
-      <a class="nav-item nav-link disabled" href="#">Disabled</a>
+      <a class="nav-item nav-link active" href="#">PROJEÇÃO</a>
+      <a class="nav-item nav-link active" href="visaogeral.php">VISÃO GERAL</a>
     </div>
   </div>
 </nav>

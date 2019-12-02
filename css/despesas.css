@@ -7,17 +7,9 @@
 /*font-family: 'Dancing Script', cursive;*/
 @import url('https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap');
 /*font-family: 'Ibarra Real Nova', serif;*/
-/*=============================inicio===========================================================*/
-#principio{
-    background-color: rgb(67, 91, 74);
-    color: #fff;
-    font-size: 16pt;
-    text-shadow: 0 0 5px #000;
-    padding:5px;
-    font-family: 'Dancing Script', cursive;
-}
 /*===============================botão modal====================================================*/
 .botaoModal{
+    margin-top: 20px;
     border:none;
     color:#fff;
     text-shadow: 0 0 2px #000;

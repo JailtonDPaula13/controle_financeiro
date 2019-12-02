@@ -32,8 +32,8 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
             <img src="imagens/visao-rec.jpg" alt="salário" width="40%" class="rounded-circle img_centV">
             <h3 class="mov_textV"><b>Visão Geral</b></h3>
-            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Projeção diária</li>
-            <p>Projeção de gasto diários, onde definir quanto pode ser gasto por dia para que não tenha despesas no mês seguinte referente a gasto do mês anterior.</p>    
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Projeção de saldo</li>
+            <p>Projeção de saldo unifome diário e mensal do mês vigente.</p>    
         </div>
     </div>
 </section>
