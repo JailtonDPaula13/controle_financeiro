@@ -130,6 +130,7 @@
       unset($_POST['clickC'], $_POST['click'], $_POST['click3'],$_POST['click4']);
    
   ?>
+<!--inicio html =============================================================================-->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -218,7 +219,7 @@
 <!--==========================================seleção de dados abas==============================================-->
     <div class="container-fluid">
         <div class="row">
-            <div class="pasta col-md-12">
+            <div class="pasta col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="tabbable" id="tabs-450075">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
@@ -243,12 +244,12 @@
                                           <label class="pesquis">A:&nbsp;&nbsp;</label>
                                           <input name="pesquisaD2" id="pesquisaD2" type = date class="pesquisaDI">
                                       </div>
-                                      <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1">
+                                      <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
                                           <button type="submit" class="botaoPesquisaData"><img src="imagens/tempo-pq.png" alt="tempo" width="60%"></button>
                                       </div>
                                       </form>
                                       <form>
-                                      <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1">
+                                      <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
                                           <button type="submit" class="botaoPesquisaData"><img src="imagens/atualizacao.png" alt="atualiza" width="60%"></button>
                                       </div>
                                       </form>
