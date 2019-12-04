@@ -1,10 +1,19 @@
 <?php
 require_once('conexao/conect.php');
+    session_start();
+//========================verificação de segurança==============================================//
+if( !isset($_SESSION["v_login"])){
+    header("location:login.php");
+}
 //=====================delete registros=================================
 if(isset($_POST['deleteId']))
 {
     $delete = $_POST['deleteId'];
     mysqli_query($conexao_dois, "delete from tb_despesa_fut where id_des = '$delete';");
+}if(isset($_POST['deleteIS']))
+{
+    $delete = $_POST['deleteIS'];
+    mysqli_query($conexao_dois, "delete from tb_saldo_fut where id_saldo_fut = '$delete';");
 }
 //======================primeiro modal============================================
 $valor     = isset($_POST['realF'])?$_POST['realF']:null;
@@ -23,7 +32,7 @@ mysqli_query($conexao_um, "call pr_saldo_fut('$valors','$descricaos','$datams','
 
 unset($_POST['realSF'],$_POST['realF']);
 //=============================selecção de abas================================//
-if(isset($_POST['clicksaldo']))
+if(isset($_POST['clicksaldo']) or isset($_POST['click3']) or isset($_POST['click4']) or isset($_POST['click5']))
          {
             $v_abaC = 'active';
             $v_abaD = null;
@@ -33,16 +42,26 @@ if(isset($_POST['clicksaldo']))
           $v_abaD = 'active';
           $v_abaC = null;
          }
-      unset($_POST['clickCsaldo']);
+      //unset($_POST['clickCsaldo'],$_POST['click3'],$_POST['click4'],$_POST['click5']);
 //=============================consulta despesas futura===========================
 if(isset($_POST['pesquisaD1'])){
     $v_dateum     = $_POST['pesquisaD1'];
-    $v_consulta   = mysqli_query($conexao_um, "select id_des, valor, descricao, date_format(mes, '%m/%y') from tb_despesa_fut where substr(mes,1,7) = '$v_dateum' order by 4 desc;");
-    $v_consultadf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_despesa_fut where substr(mes,1,7) = '$v_dateum' order by 1 desc;"));
+    $v_consulta   = mysqli_query($conexao_um, "select id_des, valor, descricao, date_format(mes, '%m/%y') as data, mes from tb_despesa_fut where substr(mes,1,7) = '$v_dateum' order by 5 desc;");
+    $v_consultadf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_despesa_fut where substr(mes,1,7) = '$v_dateum';"));
 }
 else{
-    $v_consulta = mysqli_query($conexao_um, "select id_des, valor, descricao, date_format(mes, '%m/%y') from tb_despesa_fut order by 1 desc;");
+    $v_consulta = mysqli_query($conexao_um, "select id_des, valor, descricao, date_format(mes, '%m/%y') as data, mes from tb_despesa_fut order by 5 desc;");
     $v_consultadf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_despesa_fut;"));
+}
+//=============================consulta Crédito futura===========================
+if(isset($_POST['pesquisaD2'])){
+    $v_dateums     = $_POST['pesquisaD2'];
+    $v_consultas   = mysqli_query($conexao_quatro, "select id_saldo_fut, valor, descricao, date_format(data, '%m/%y'), data from tb_saldo_fut where substr(data,1,7) = '$v_dateums' order by 5 desc;");
+    $v_consultasf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_saldo_fut where substr(data,1,7) = '$v_dateums' order by 1 desc;"));
+}
+else{
+    $v_consultas = mysqli_query($conexao_quatro, "select id_saldo_fut, valor, descricao, date_format(data, '%m/%y'), data from tb_saldo_fut order by 5 desc;");
+    $v_consultasf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_saldo_fut;"));
 }
 ?>
 <!--======================inicio do HTML============================================-->
@@ -235,7 +254,6 @@ else{
                                   <th scope="col"><?php print_r('R$: '.$v_consultadf[0]); ?></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
-                                  <th scope="col"></th>
                                   
                                 </tr>
                               </tbody>
@@ -244,43 +262,39 @@ else{
                         <!--=====fim primeira tabela despesa=====-->
                         <div class="tab-pane <?php print_r($v_abaC); ?> abas" id="tab2">
             <!--===============inicio tabela dois===================-->
-                        <!--===========consulta tabela crédito=========-->
-                                 <table class="table">
-                                 <div class="row">
-                                  <form action="despesas.php" method="post">
+            <!--===========pesquisa======================-->
+                         <table class="table">
+                                  <div class="row">
+                                      <form action="projecao.php" method="post">
                                       <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                                           <label class="pesquis">De:</label>
-                                          <input name="pesquisaD3" id="pesquisaD3" type = date class="pesquisaDI" required>
+                                          <input name="pesquisaD2" id="pesquisaD2" type ="month" min="2019-01" max="2050-01" class="pesquisaDI" placeholder="YYYY-MM" size="7" required>
                                       </div>
-                                      <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                          <label class="pesquis">A:&nbsp;&nbsp;</label>
-                                          <input name="pesquisaD4" id="pesquisaD4" type = date class="pesquisaDI">
+                                      <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+                                          <button type="submit" class="botaoPesquisaData" name="click3" value="1"><img src="imagens/tempo-pq.png" alt="tempo" width="60%"></button>
                                       </div>
-                                      <div class="col-4 col-sm-4 col-md-4 col-lg-1 col-xl-1">
-                                          <button name="click" type="submit" class="botaoPesquisaData" value="1"><img src="imagens/tempo-pq.png" alt="tempo" width="60%"></button>
+                                      </form>
+                                      <form method="post">
+                                      <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+                                          <button type="submit" class="botaoPesquisaData" name="click4" value="1"><img src="imagens/atualizacao.png" alt="atualiza" width="60%"></button>
                                       </div>
-                                  </form>
-                                  <form method="post">
-                                      <div class="col-4 col-sm-4 col-md-4 col-lg-1 col-xl-1">
-                                          <button name="clickC" type="submit" class="botaoPesquisaData" value="1"><img src="imagens/atualizacao.png" alt="tempo" width="60%"></button>
-                                      </div>
-                                  </form>
+                                      </form>
                                   </div>
-                                     <!--========================delete registro credito========================-->
+                               <!-- ========================delete registro========================-->
                                <div class="row">
-                                       <form acition="despesas.php" method="post">
-                                   <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                                <form acition="projecao.php" method="post">
+                                   <div class="col-12 col-sm-4 col-md-2 col-lg-2 col-xl-2">
                                            <label class="pesquis">
                                                Excluir ID:
                                            </label>
-                                           <input name="deleteIC" type="number" min="0" class="pesquisaDI" required>
+                                           <input name="deleteIS" type="number" min="0" class="pesquisaDI" required>
                                    </div>
-                                   <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1">
-                                          <button type="submit" class="botaoPesquisaData" name="click3" value="1"><img src="imagens/lixeira-red.png" alt="atualiza" width="60%"></button>
+                                   <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+                                          <button type="submit" class="botaoPesquisaData" name="click5" value="1"><img src="imagens/lixeira-red.png" alt="atualiza" width="60%"></button>
                                    </div>
-                                       </form>
+                                 </form>
                                </div>
-                       <!--=============tabela dois=================-->
+                               <!--========inicio primeira tabela==========-->
                               <thead class="cabecalhoTabela">
                                 <tr>
                                   <th scope="col">ID</th>
@@ -290,31 +304,33 @@ else{
                                 </tr>
                               </thead>
                               <tbody>
-                                <!--Inicio do loop-->
                                 <?php
-                                  if(!$v_consulta_C)
+                                  //$v_consulta configurado no incio -- whie permanece para visualização sem erro
+                                  if(!$v_consultas)
                                   {
                                       echo("Erro de conexão D:");
                                   }
                                   else
                                   {
-                                      while($v_resultado_C = mysqli_fetch_row($v_consulta_C))
+                                      while($consulta_saldo = mysqli_fetch_row($v_consultas))
                                       {                                  
                                  ?>
                                 <tr class="linhaTabela">
-                                  <th scope="row"><?php print_r($v_resultado_C[0]);?></th>
-                                  <th scope="row"><?php print_r('R$: '.$v_resultado_C[1]);?></th>
-                                  <td ><?php print_r($v_resultado_C[2]);?></td>
-                                  <td ><?php print_r($v_resultado_C[3]);}}?></td>
+                                  <th scope="row"><?php print_r($consulta_saldo[0]);?></th>
+                                  <th scope="row"><?php print_r('R$: '.$consulta_saldo[1]);?></th>
+                                  <td><?php print_r($consulta_saldo[2]);?></td>
+                                  <td><?php print_r($consulta_saldo[3]); }}?></td>    
                                 </tr>
                               </tbody>
-                                <!--===========total tabela dois crédito================-->
+                            <!--========total tabela de despesa futura===============-->
                               <tbody class="cabecalhoTabela">
                                <tr>
+                                   
                                   <th scope="col"></th>
-                                  <th scope="col"><?php print_r('R$: '.$v_resltotal_C[0]); ?></th>
+                                  <th scope="col"><?php print_r('R$: '.$v_consultasf[0]); ?></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
+                                  
                                 </tr>
                               </tbody>
                             </table>

@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap');
 /*font-family: 'Ibarra Real Nova', serif;*/
 body{
-    background-color: rgb(0, 22, 74);
+        background-color: rgb(0, 22, 74);
 }
 /*==========artigos=========================================================================================*/
 .artigos{
@@ -34,6 +34,10 @@ li{
     font-weight: bold;
     list-style: none;
     font-style: italic;
+}
+p{
+   line-height:15px;
+    text-align: justify;
 }
 /*========================VISÃO GERAL=======================================================================*/
 .artigosv{

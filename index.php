@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -25,17 +28,31 @@
             <p>Cadastro do crédito com definição de valores, descrição e data tendo visão geral com soma de valores podendo filtra por data.</p>    
         </div>
     </div>
-<!--VISÕA GERAL-->
+<!--PROJEÇÃO DE DESPESAS DOS MESES A SEGUIR-->
     <div class="row artigosv">
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
-            <img src="imagens/visao-rec.jpg" alt="salário" width="40%" class="rounded-circle img_centV">
-            <h3 class="mov_textV"><b>Visão Geral</b></h3>
-            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Projeção de saldo</li>
-            <p>Projeção de saldo unifome diário e mensal do mês vigente.</p>    
+            <img src="imagens/pessoa_tempo-rec.jpg" alt="salário" width="40%" class="rounded-circle img_centV">
+            <h3 class="mov_textV"><b>Projeção de despesas dos meses a seguir</b></h3>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Cadastro das despesas futuras</li>
+            <p>Cadastros das despesas dos mês a posteriores para assim ter uma previsão de gasto de saldo e dividas dos meses a seguir.</p>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Cadastro dos créditos futuros</li>
+            <p>Cadastros dos crédito dos mês a posteriores para assim ter uma previsão de gasto de saldo e dividas dos meses a seguir.</p>    
         </div>
     </div>
+<!--VISÃO GERAL-->
+    <div class="row artigos">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
+            <img src="imagens/visao-rec.jpg" alt="salário" width="40%" class="rounded-circle img_cent">
+            <h3 class="mov_text"><b>Visão Geral</b></h3>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Projeção de saldo</li>
+            <p>Projeção de saldo unifome diário e mensal do mês vigente.</p>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Projeção de saldo do mês posterior</li>
+            <p>Projeção de saldo unifome diário e mensal do mês posterior.</p>   s
+        </div>
+    </div>
+
 </section>
 
 

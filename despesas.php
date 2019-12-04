@@ -1,5 +1,11 @@
 <?php
     require_once "conexao/conect.php";
+    setlocale(LC_ALL, "PT-BR");
+    session_start();
+//========================verificação de segurança==============================================//
+if( !isset($_SESSION["v_login"])){
+    header("location:login.php");
+}
 //=============================delete de registro=====================================================
 //despesa       
      if(isset($_POST['deleteId']))
@@ -292,7 +298,7 @@
                                  ?>
                                 <tr class="linhaTabela">
                                   <th scope="row"><?php print_r($v_resultado[0]);?></th>
-                                  <th scope="row"><?php print_r('R$: '.$v_resultado[1]);?></th>
+                                  <th scope="row"><?php print_r($v_resultado[1]);?></th>
                                   <td><?php print_r($v_resultado[2]);?></td>
                                   <td><?php print_r($v_resultado[3]);?></td>
                                   <td><?php print_r($v_resultado[4]); }}?></td>

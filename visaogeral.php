@@ -1,9 +1,14 @@
 <?php
+    session_start();
 //======================================Consulta gasto diário==============================//
-   require_once ('conexao/connect_class.php');
-   $v_conct1 = mysqli_fetch_row(mysqli_query($v_conexao,"select * from vw_valor_d;"));
-   $v_conct2 = mysqli_fetch_row(mysqli_query($v_conexaoD,"select * from vw_valor_m;"));
-   if(!$v_conct2){
+   //require_once ('conexao/connect_class.php');
+   require_once ('conexao/conect.php');
+   $v_conct1 = mysqli_fetch_row(mysqli_query($conexao_um,"select * from vw_valor_d;"));
+   $v_conct2 = mysqli_fetch_row(mysqli_query($conexao_dois,"select * from vw_valor_m;"));
+   $v_conct3 = mysqli_fetch_row(mysqli_query($conexao_cinco,"select * from vw_consulta_saldo_f;"));
+   $v_conct4 = mysqli_fetch_row(mysqli_query($conexao_seis,"select * from vw_consulta_saldom_f;"));
+   
+   if(!$conexao_um){
        echo("erro de conexão na projeção do mês");
    }
    
@@ -53,10 +58,42 @@
                   </div>
                   <div class="card-body">
                    <h5>
-                       Saldo restante para o mês vigente é:
+                       Saldo restante para o mês vijente é:
                    </h5>
                    <p class="valor">
                        R$:&nbsp;<?php print_r($v_conct2[0]); ?>
+                   </p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+<!--===================projeção de futuros===========================-->
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                      Projeção de saldo futuro:
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+                   <h5>
+                       Para gasto unifome entre os dias do mês vigente e não gerar despesas para o mês posterior o valor máximo aceito de despesa hoje é:
+                   </h5>
+                   <p class="valor">
+                       R$:&nbsp;<?php print_r($v_conct4[0]); ?>
+                   </p>
+                  </div>
+                  <div class="card-body">
+                   <h5>
+                       Projeção de saldo restante para o mês posterior é:
+                   </h5>
+                   <p class="valor">
+                       R$:&nbsp;<?php print_r($v_conct3[0]); ?>
                    </p>
                   </div>
 
