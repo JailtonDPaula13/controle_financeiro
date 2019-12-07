@@ -1,26 +1,42 @@
 <?php
-   include_once "conexao/conect.php";
-   session_start();
+ini_set('display_errors', FALSE);
+
+include_once "conexao/conect.php";
+
+session_start();
+//===============erro de conexão==========================//
+if(!$conexao_um){
+    $v_msgc   = "ERRO DE CONEXÃO !!! D:";
+} 
+
+//=======================logoff============================================//
 if(isset($_GET['logoff']))
 {
     unset($_SESSION["v_login"]);
 }
 //====================CONEXÃO CO LOGIN===================================//
-   if(isset($_POST['login'])){
+   if(isset($_POST['login'])){ 
        $login     = $_POST['login'];
        $senha     = $_POST['senha'];
-       $v_conexao = mysqli_fetch_row(mysqli_query($conexao_um, "select * from tb_usuario where login = '$login' and senha = '$senha'"));
-       
-        if(empty($v_conexao))
-        {
-           $v_retorno = "LOGIN ou SENHA invalida.";
-        }
-       else
+       $v_conexao = mysqli_fetch_row(mysqli_query($conexao_um, "select * from tb_usuario where login = '$login'"));
+       if(empty($v_conexao))
        {
-           $_SESSION["v_login"] = $v_conexao[3];
-           header("location:index.php");
+           $v_retorno = "LOGIN invalido."; 
+       }
+       else{
+           $v_conexao = mysqli_fetch_row(mysqli_query($conexao_um, "select * from tb_usuario where login = '$login' and senha = '$senha'"));
+           if(empty($v_conexao))
+           {
+             $v_retorno = "SENHA invalida.";
+           }
+           else
+           {
+             $_SESSION["v_login"] = $v_conexao[3];
+             header("location:index.php");
+           }
        }
    }
+            
 //======trantando logado ==================================//
   
 ?>
@@ -46,10 +62,11 @@ if(isset($_GET['logoff']))
                         <label>LOGIN:</label><br>
                         <input name="login" type="text" size="18" maxlength="10" placeholder="LOGIN" onkeyup="this.value = this.value.toUpperCase();" required><br>
                         <label>SENHA:</label><br>
-                        <input name="senha" type="text" size="18" maxlength="6" placeholder="SENHA" onkeyup="this.value = this.value.toUpperCase();" required><br>
+                        <input name="senha" type="password" size="18" maxlength="6" placeholder="SENHA" onkeyup="this.value = this.value.toUpperCase();" required><br>
                         <input type="submit" value="LOGIN">
                         <?php if(isset($v_retorno)){?> <p><?php print_r($v_retorno); }?></p>
                         <?php if(isset($_SESSION["v_login"])){?><p>USUÁRIO:&nbsp;<?php print_r($_SESSION["v_login"]); }?></p>
+                        <?php if(isset($v_msgc)){?><p><?php print_r($v_msgc); }?></p>
                     </form>
 
                 </div>

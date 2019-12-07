@@ -1,17 +1,49 @@
 <?PHP
-    require_once "conexao/conect.php";  
+    require_once "conexao/conect.php";
+    require_once "funcao/erroup.php";
 //====================================insert na tabela=====================================//
-if(isset($_GET['real']))
-{
-    $v_valor  = $_GET['real'];
-    $v_desc   = $_GET['descricao'];
-    $v_status = $_GET['status'];
-    $v_imagem = $_GET['imagem'];
-    
-    mysqli_query($conexao_um, "insert into tb_list values (null, '$v_desc','$v_valor','$v_status','$v_imagem');");
-    
-    unset($_GET['real']);
-}
+    //variavel de preenchimento
+    $v_descricao = null;
+    $v_valor     = null;
+    //consulta de erro de imagem
+    if(isset($_POST['descricao']))
+    {
+        $v_erro_up = $_FILES['imagemup']['error'];
+        $v_name    = null;
+        $v_temp    = null;
+
+       //verificação se houve erro ao carregar imagens
+        if($v_erro_up != 4 && $v_erro_up != 0){ 
+            $print_er= erroUp($v_erro_up);
+            print_r("<script>alert('$print_er')</script>");
+            $v_descricao = $_POST['descricao'];
+            $v_valor     = $_POST['real']; 
+        }
+        else{
+            //caso tenha upload
+            if( $v_erro_up == 0 and (strrchr($_FILES['imagemup']['name'],".") == ".jpg" or
+                                     strrchr($_FILES['imagemup']['name'],".")==".png" or
+                                     strrchr($_FILES['imagemup']['name'],".")==".jpeg"))
+            {
+                $v_name = uploadName($_FILES['imagemup']['name']); //nome padrão dos arquivos
+                $v_temp = $_FILES['imagemup']['tmp_name'];         //pasta temp 
+                move_uploaded_file($v_temp,$v_name);               //movendo arquivo para pasta
+            }
+            
+            $v_decricao_ins   = $_POST['descricao'];
+            $v_valor_ins      = $_POST['real'];
+            $v_prioridade_ins = $_POST['prioridade'];
+            
+            mysqli_query($conexao_um,"insert into tb_lista	
+            (id_lista,descricao,valor,status,imagen)
+            values
+            (null,'$v_decricao_ins','$v_valor_ins','$v_prioridade_ins','$v_name');"); 
+//            mysqli_query($conexao_um,"call pr_lista('$v_decricao_ins','$v_valor_ins','$v_prioridade_ins','$v_name');");
+        }
+
+        
+    }
+   
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -40,21 +72,29 @@ if(isset($_GET['real']))
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <img src="imagens/cifrao_modal.png" alt="cifrão" width="30%">
+                            <img src="imagens/compras2.0.png" alt="compras" width="30%">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                          <form action="lista.php" method="get">
+                          <form action="lista.php" method="post" enctype="multipart/form-data">
                           <div class="modal-body">
-                            <label>R$:</label><br>
-                            <input name="real" id="real" type="number" step="0.01" placeholder="0,00" min="0" max="9999" required><br>
                             <label>DESCRIÇÃO:</label><br>
-                            <input name="descricao" id="descricao" type="text" size="20" maxlength="50" placeholder="SMART TV 4k" required><br>
+                            <input name="descricao" type="text" maxlength="50" placeholder="NOTEBOOK" value="<?php print_r($v_descricao) ?>" required><br>
+                            <label>VALOR:</label><br>
+                            <input name="real" type="number" placeholder="0,00" min="0" required><br>
                             <label>PRIORIDADE:</label><br>
-                            <input name="status" id="status" type="number" min="1" max="4" placeholder="1-4" required><br>
+                            <select name="prioridade" required>
+                                <option value="1">Urgênte</option>
+                                <option value="2">Necessário</option>
+                                <option value="3">Moderado</option>
+                                <option value="4">Desnecessário</option>
+                                <option value="5" selected  >!!! Inútil !!!</option>
+                            </select><br>
                             <label>IMAGEM:</label><br>
-                            <input name="imagem" id="imagem" type="file" accept=".jpg, .jpeg, .png"><br>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="15728640">
+<!--                              15728640-->
+                            <input name="imagemup" type="file" accept=".jpg, .jpeg, .png"><br>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -66,7 +106,7 @@ if(isset($_GET['real']))
                     </div>
                 </div>
             </div>
-<!--====================lista de compras===========================-->
+        <!--====================lista de compras===========================-->
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-12 col-lg-4 col-xl-4">
                     
@@ -77,5 +117,10 @@ if(isset($_GET['real']))
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="js/bootstrap.min.js"></script>
         <!--<script src="js/jquery-3.3.1.slim.min.js"></script>-->
+    <?php
+        unset($_POST['descricao'],$v_decricao_ins);
+        print_r($v_decricao_ins);
+        include_once("rodape.php");
+    ?>
     </body>
 </html>

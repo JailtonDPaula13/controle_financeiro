@@ -1,4 +1,5 @@
 <?php
+    ini_set('display_errors', FALSE);
     require_once "conexao/conect.php";
     setlocale(LC_ALL, "PT-BR");
     session_start();
@@ -369,13 +370,7 @@ if( !isset($_SESSION["v_login"])){
                               <tbody>
                                 <!--Inicio do loop-->
                                 <?php
-                                  
-                                  
-                                  if(!$v_consulta_C)
-                                  {
-                                      echo("Erro de conexão D:");
-                                  }
-                                  else
+                                  if($v_consulta_C)
                                   {
                                       while($v_resultado_C = mysqli_fetch_row($v_consulta_C))
                                       {                                  
@@ -405,11 +400,18 @@ if( !isset($_SESSION["v_login"])){
         </div>
     </div>
 </div>
+</div>
+<?php
+    include_once("rodape.php");
+    if(!$conexao_seis or !$conexao_um or !$conexao_tres or !$conexao_dois or !$conexao_quatro or !$conexao_cinco )
+    {
+         echo("<script> alert('Erro ao conectar no banco!!!') </script>");
+    }
+        
+?>
 <!--SCRIPTS===============================================================-->
-    
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
 <!--<script src="js/jquery-3.3.1.slim.min.js"></script>-->
-</div>
 </body>
 </html>

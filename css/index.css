@@ -12,9 +12,11 @@ body{
 }
 /*==========artigos=========================================================================================*/
 .artigos{
-    margin-top:30px;
     background-color: #fff;
     padding: 15px;
+}
+.sub_artigo{
+    padding: 10px;
 }
 
 .img_cent{
@@ -41,7 +43,6 @@ p{
 }
 /*========================VISÃO GERAL=======================================================================*/
 .artigosv{
-    margin-top:30px;
     padding: 15px;
     color:#fff;
 }
@@ -49,7 +50,7 @@ p{
 text-align: left;
 }
 .img_centV{
-    border: 2px dashed #000;
+    border: 2px dashed #fff;
     box-shadow: 0 0 5px #000;
     float: left;
     margin-right: 25px;

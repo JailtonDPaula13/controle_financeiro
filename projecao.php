@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', FALSE);
 require_once('conexao/conect.php');
     session_start();
 //========================verificação de segurança==============================================//
@@ -346,5 +347,12 @@ else{
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
 <!--<script src="js/jquery-3.3.1.slim.min.js"></script>-->
+<?php
+    include_once("rodape.php");
+        if(!$conexao_seis or !$conexao_um or !$conexao_tres or !$conexao_dois or !$conexao_quatro or !$conexao_cinco )
+    {
+         echo("<script> alert('Erro ao conectar no banco!!!') </script>");
+    }
+?>
     </body>
 </html>

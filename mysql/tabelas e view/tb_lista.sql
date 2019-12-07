@@ -4,6 +4,7 @@ create table tb_lista
    descricao varchar(50) not null,
    valor float(7,2)not null,
    status int(1) not null,
-   data date not null,
-   imagen longblob
+   data date not null default now(),
+   comprado enum('S','N') not null default 'N',
+   imagen varchar(100)
 );
