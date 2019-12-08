@@ -31,9 +31,27 @@ if(isset($_GET['logoff']))
            }
            else
            {
-             $_SESSION["v_login"] = $v_conexao[3];
-             header("location:index.php");
-           }
+                if(isset($_GET['lista']))
+                {
+                    $_SESSION["v_login"] = $v_conexao[3];
+                    header("location:lista.php");
+                }
+                elseif(isset($_GET['despesas']))
+                {
+                    $_SESSION["v_login"] = $v_conexao[3];
+                    header("location:despesas.php");
+                }
+               elseif(isset($_GET['projecao']))
+                {
+                    $_SESSION["v_login"] = $v_conexao[3];
+                    header("location:projecao.php");
+                }
+                else
+                {
+                    $_SESSION["v_login"] = $v_conexao[3];
+                    header("location:index.php");
+                }
+            }
        }
    }
             

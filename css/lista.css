@@ -48,7 +48,18 @@ input:hover{
     border: 2px solid rgb(214, 181, 12);
     box-shadow: 0 0 2px #000;
 }
-/*=====================selected======================================================================*/
-#seis:hover{
-    background-color: #ec1c1c;
+/*=====================cards======================================================================*/
+.idcard{
+    background-color: #fff;
+    padding:5px;
+}
+.card0{
+    border: 1px solid #000;
+    box-shadow: 0 0 2px #000;
+}
+.listap{
+    line-height:8px;
+}
+.card-title{
+    height: 50px;
 }

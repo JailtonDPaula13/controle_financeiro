@@ -4,7 +4,7 @@ require_once('conexao/conect.php');
     session_start();
 //========================verificação de segurança==============================================//
 if( !isset($_SESSION["v_login"])){
-    header("location:login.php");
+    header("location:login.php?projecao=1");
 }
 //=====================delete registros=================================
 if(isset($_POST['deleteId']))

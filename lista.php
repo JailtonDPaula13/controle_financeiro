@@ -1,6 +1,12 @@
 <?PHP
     require_once "conexao/conect.php";
     require_once "funcao/erroup.php";
+//===========================validação de login============================================//
+session_start();
+if(!$_SESSION["v_login"])
+{
+    header("location:login.php?lista=1");
+}
 //====================================insert na tabela=====================================//
     //variavel de preenchimento
     $v_descricao = null;
@@ -9,7 +15,7 @@
     if(isset($_POST['descricao']))
     {
         $v_erro_up = $_FILES['imagemup']['error'];
-        $v_name    = null;
+        $v_name    = "imagens/upload/Mordomo_Menta.webp";
         $v_temp    = null;
 
        //verificação se houve erro ao carregar imagens
@@ -43,7 +49,12 @@
 
         
     }
-   
+//==================================colsa da lista========================================================================//
+     $consulta = mysqli_query($conexao_dois, "select id_lista,descricao,valor,status,date_format(data,'%d/%m/%y') ,comprado,imagen from tb_lista where comprado = 'N' and status <> 0 order by 4;");
+     if(!$consulta){
+          echo("<script>alert('erro ao conectar ao banco !!!')</script>");
+     }
+      
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -89,7 +100,7 @@
                                 <option value="2">Necessário</option>
                                 <option value="3">Moderado</option>
                                 <option value="4">Desnecessário</option>
-                                <option value="5" selected  >!!! Inútil !!!</option>
+                                <option value="0" selected  >!!! Inútil !!!</option>
                             </select><br>
                             <label>IMAGEM:</label><br>
                             <input type="hidden" name="MAX_FILE_SIZE" value="15728640">
@@ -107,10 +118,22 @@
                 </div>
             </div>
         <!--====================lista de compras===========================-->
-            <div class="row">
-                <div class="col-12 col-sm-6 col-md-12 col-lg-4 col-xl-4">
-                    
+            <div class="row idcard">
+                    <?php while($v_consulta_lista = mysqli_fetch_row($consulta)){ ?>
+                <div class="col-12 col-sm-6 col-md-12 col-lg-3 col-xl-3">
+                    <div class="card card0" style="width: 18rem;">
+                        <img src="<?php print_r($v_consulta_lista[6]);?>" class="card-img-top" alt="nula" width="361px;" height="200px;">
+                          <div class="card-body">
+                            <h5 class="card-title"><?php print_r($v_consulta_lista[1]);?></h5>
+                            <p class="card-text listap"><?php print_r("<b> ID: </b>".$v_consulta_lista[0]);?></p>
+                            <p class="card-text listap"><?php print_r("<b>Valor: </b>R$".$v_consulta_lista[2]);?></p>
+                            <p class="card-text listap"><?php print_r("<b>Prioridade: </b>".retornoPrioridade($v_consulta_lista[3]));?></p>
+                            <p class="card-text listap"><?php print_r("<b>Alterado: </b>".$v_consulta_lista[4]);?></p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                          </div>
+                    </div>
                 </div>
+                    <?php } ?>
             </div>
         </section>
         <!--SCRIPTS===============================================================-->   
@@ -119,7 +142,6 @@
         <!--<script src="js/jquery-3.3.1.slim.min.js"></script>-->
     <?php
         unset($_POST['descricao'],$v_decricao_ins);
-        print_r($v_decricao_ins);
         include_once("rodape.php");
     ?>
     </body>

@@ -5,7 +5,7 @@
     session_start();
 //========================verificação de segurança==============================================//
 if( !isset($_SESSION["v_login"])){
-    header("location:login.php");
+    header("location:login.php?despesas=1");
 }
 //=============================delete de registro=====================================================
 //despesa       
