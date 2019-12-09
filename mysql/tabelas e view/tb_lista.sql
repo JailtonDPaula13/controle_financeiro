@@ -8,3 +8,5 @@ create table tb_lista
    comprado enum('S','N') not null default 'N',
    imagen varchar(100)
 );
+
+alter table tb_lista add constraint uq_prod unique(descricao);

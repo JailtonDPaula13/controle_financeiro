@@ -46,6 +46,11 @@ if(isset($_GET['logoff']))
                     $_SESSION["v_login"] = $v_conexao[3];
                     header("location:projecao.php");
                 }
+               elseif(isset($_GET['visao']))
+                {
+                    $_SESSION["v_login"] = $v_conexao[3];
+                    header("location:visaogeral.php");
+                }
                 else
                 {
                     $_SESSION["v_login"] = $v_conexao[3];

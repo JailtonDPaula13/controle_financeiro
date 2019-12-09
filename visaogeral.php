@@ -1,18 +1,31 @@
 <?php
     session_start();
     ini_set('display_errors', FALSE);
+    require_once ('conexao/conect.php');
+    date_default_timezone_set('America/Fortaleza');
+//=================================verificar acesso========================================//
+if( !isset($_SESSION["v_login"])){
+    header("location:login.php?visao=1");
+}
 //======================================Consulta gasto diário==============================//
-   //require_once ('conexao/connect_class.php');
-   require_once ('conexao/conect.php');
+   
    $v_conct1 = mysqli_fetch_row(mysqli_query($conexao_um,"select * from vw_valor_d;"));
    $v_conct2 = mysqli_fetch_row(mysqli_query($conexao_dois,"select * from vw_valor_m;"));
-   $v_conct3 = mysqli_fetch_row(mysqli_query($conexao_cinco,"select * from vw_consulta_saldo_f;"));
-   $v_conct4 = mysqli_fetch_row(mysqli_query($conexao_seis,"select * from vw_consulta_saldom_f;"));
+   $v_conct3 = mysqli_fetch_row(mysqli_query($conexao_tres,"select fn_saldo_futuro(1);"));
+   $v_conct4 = mysqli_fetch_row(mysqli_query($conexao_quatro,"select fn_saldo_futuro_dia(1);"));
+   $v_conct5 = mysqli_fetch_row(mysqli_query($conexao_cinco,"select fn_saldo_futuro(2);"));
+   $v_conct6 = mysqli_fetch_row(mysqli_query($conexao_seis,"select fn_saldo_futuro_dia(2);"));
    
-   if(!$conexao_um){
+   if(!$conexao_um or !$v_conct2 or !$v_conct3 or !$v_conct4 or !$v_conct5 or !$v_conct6)
+   {
        echo("erro de conexão na projeção do mês");
    }
-   
+//=====projeção de data=======================================================================//
+
+$v_datap = getdate();
+//print_r($v_datap);
+//print_r($v_datap['month']."/".$v_datap['year']);
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -83,7 +96,7 @@
                 <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                   <div class="card-body">
                    <h5>
-                       Para gasto unifome entre os dias do mês vigente e não gerar despesas para o mês posterior o valor máximo aceito de despesa hoje é:
+                       Para gasto unifome entre os dias do mês posterior e não gerar despesas para o mês seguinte o valor máximo aceito de despesa diária é:
                    </h5>
                    <p class="valor">
                        R$:&nbsp;<?php print_r($v_conct4[0]); ?>
@@ -95,6 +108,38 @@
                    </h5>
                    <p class="valor">
                        R$:&nbsp;<?php print_r($v_conct3[0]); ?>
+                   </p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+<!--===================projeção de futuros 2 meses===========================-->
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                      Projeção de saldo futuro dois meses a frente:
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+                   <h5>
+                       Para gasto unifome entre os dias dois meses posterior e não gerar despesas para o mês seguinte o valor máximo aceito de despesa diária é:
+                   </h5>
+                   <p class="valor">
+                       R$:&nbsp;<?php print_r($v_conct6[0]); ?>
+                   </p>
+                  </div>
+                  <div class="card-body">
+                   <h5>
+                       Projeção de saldo restante para dois meses posterior é:
+                   </h5>
+                   <p class="valor">
+                       R$:&nbsp;<?php print_r($v_conct5[0]); ?>
                    </p>
                   </div>
 

@@ -1,6 +1,7 @@
 <?PHP
     require_once "conexao/conect.php";
     require_once "funcao/erroup.php";
+    require_once "funcao/prioridade.php";
 //===========================validação de login============================================//
 session_start();
 if(!$_SESSION["v_login"])
