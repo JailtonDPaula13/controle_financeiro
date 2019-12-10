@@ -21,7 +21,7 @@
     }
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="index.php">
       <img src="imagens/cifrao_origen.png" width="30" height="30" alt="Cifrão">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

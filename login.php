@@ -91,7 +91,10 @@ if(isset($_GET['logoff']))
                         <?php if(isset($_SESSION["v_login"])){?><p>USUÁRIO:&nbsp;<?php print_r($_SESSION["v_login"]); }?></p>
                         <?php if(isset($v_msgc)){?><p><?php print_r($v_msgc); }?></p>
                     </form>
-
+                        <a href="login.php?logoff=1"><h6>LOGOFF</h6></a>
+                        <?php if(!$_SESSION["v_login"]) {?>
+                        <a href="cadastro.php"><h6>CADASTRAR</h6></a>
+                        <?php } ?>
                 </div>
             </div>
         </section>

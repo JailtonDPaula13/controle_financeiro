@@ -56,10 +56,24 @@ input:hover{
 .card0{
     border: 1px solid #000;
     box-shadow: 0 0 2px #000;
+    margin-top:10px;
+    margin-bottom:10px;
 }
 .listap{
     line-height:8px;
 }
 .card-title{
     height: 50px;
+}
+.deleteb{
+    border: 1px solid #000;
+    border-radius: 7px;
+    transition: 0.5s;
+}
+.deleteb:hover{
+   box-shadow: 0 0 5px rgb(214, 181, 12);
+   background-color: red;
+}
+.fimupdate:hover{
+   background-color: #13CC00;
 }
