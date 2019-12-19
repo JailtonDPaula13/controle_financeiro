@@ -33,27 +33,27 @@ if(isset($_GET['logoff']))
            {
                 if(isset($_GET['lista']))
                 {
-                    $_SESSION["v_login"] = $v_conexao[3];
+                    $_SESSION["v_login"] = $v_conexao[1];
                     header("location:lista.php");
                 }
                 elseif(isset($_GET['despesas']))
                 {
-                    $_SESSION["v_login"] = $v_conexao[3];
+                    $_SESSION["v_login"] = $v_conexao[1];
                     header("location:despesas.php");
                 }
                elseif(isset($_GET['projecao']))
                 {
-                    $_SESSION["v_login"] = $v_conexao[3];
+                    $_SESSION["v_login"] = $v_conexao[1];
                     header("location:projecao.php");
                 }
                elseif(isset($_GET['visao']))
                 {
-                    $_SESSION["v_login"] = $v_conexao[3];
+                    $_SESSION["v_login"] = $v_conexao[1];
                     header("location:visaogeral.php");
                 }
                 else
                 {
-                    $_SESSION["v_login"] = $v_conexao[3];
+                    $_SESSION["v_login"] = $v_conexao[1];
                     header("location:index.php");
                 }
             }
@@ -83,7 +83,7 @@ if(isset($_GET['logoff']))
                 <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 login">
                     <form method="post">
                         <label>LOGIN:</label><br>
-                        <input name="login" type="text" size="18" maxlength="10" placeholder="LOGIN" onkeyup="this.value = this.value.toUpperCase();" required><br>
+                        <input name="login" type="text" size="18" maxlength="10" placeholder="LOGIN"    onkeyup="this.value = this.value.toUpperCase();" required><br>
                         <label>SENHA:</label><br>
                         <input name="senha" type="password" size="18" maxlength="6" placeholder="SENHA" onkeyup="this.value = this.value.toUpperCase();" required><br>
                         <input type="submit" value="LOGIN">

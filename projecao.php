@@ -6,34 +6,51 @@ require_once('conexao/conect.php');
 if( !isset($_SESSION["v_login"])){
     header("location:login.php?projecao=1");
 }
+else
+{
+    $v_loginp = $_SESSION["v_login"];
+}
 //=====================delete registros=================================
-if(isset($_POST['deleteId']))
+//despesas
+if(isset($_GET['deleteId']))
 {
-    $delete = $_POST['deleteId'];
-    mysqli_query($conexao_dois, "delete from tb_despesa_fut where id_des = '$delete';");
-}if(isset($_POST['deleteIS']))
+    $delete = $_GET['deleteId'];
+    mysqli_query($conexao_dois, "delete from tb_despesa_fut where id_des = '$delete' and login = '$v_loginp';");
+}
+//crédito
+if(isset($_GET['deleteIS']))
 {
-    $delete = $_POST['deleteIS'];
-    mysqli_query($conexao_dois, "delete from tb_saldo_fut where id_saldo_fut = '$delete';");
+    $delete = $_GET['deleteIS'];
+    mysqli_query($conexao_dois, "delete from tb_saldo_fut where id_saldo_fut = '$delete' and login = '$v_loginp';");
 }
 //======================primeiro modal============================================
-$valor     = isset($_POST['realF'])?$_POST['realF']:null;
-$descricao = isset($_POST['descricaoF'])?$_POST['descricaoF']:null;
-$datam     = isset($_POST['datam'])?$_POST['datam']:null;
-$dataa     = isset($_POST['dataa'])?$_POST['dataa']:null;
+if(isset($_POST['realF']))
+{
+    $valor     = $_POST['realF'];
+    $descricao = isset($_POST['descricaoF'])?$_POST['descricaoF']:null;
+    $datam     = $_POST['datam'];
+    $dataa     = $_POST['dataa'];
 
-mysqli_query($conexao_um, "call pr_despesas_futura('$valor','$descricao','$datam','$dataa');");
+    mysqli_query($conexao_um, "call pr_despesas_futura('$valor','$descricao','$datam','$dataa','$v_loginp');");
+    
+    unset($_POST['realF']);
+}
 //=====================segundo modal===================================================
-$valors     = isset($_POST['realSF'])?$_POST['realSF']:null;
-$descricaos = isset($_POST['descricaoSF'])?$_POST['descricaoSF']:null;
-$datams    = isset($_POST['datamS'])?$_POST['datamS']:null;
-$dataas    = isset($_POST['dataaS'])?$_POST['dataaS']:null;
+if(isset($_POST['realSF']))
+{
+    $valors     = $_POST['realSF'];
+    $descricaos = isset($_POST['descricaoSF'])?$_POST['descricaoSF']:null;
+    $datams     = $_POST['datamS'];
+    $dataas     = $_POST['dataaS'];
 
-mysqli_query($conexao_um, "call pr_saldo_fut('$valors','$descricaos','$datams','$dataas');");
+    mysqli_query($conexao_um, "call pr_saldo_fut('$valors','$descricaos','$datams','$dataas','$v_loginp');");
+    
+    unset($_POST['realSF']);
+}
 
-unset($_POST['realSF'],$_POST['realF']);
+
 //=============================selecção de abas================================//
-if(isset($_POST['clicksaldo']) or isset($_POST['click3']) or isset($_POST['click4']) or isset($_POST['click5']))
+if(isset($_POST['clicksaldo']) or isset($_POST['click3']) or isset($_POST['click4']) or isset($_GET['deleteIS']))
          {
             $v_abaC = 'active';
             $v_abaD = null;
@@ -43,26 +60,25 @@ if(isset($_POST['clicksaldo']) or isset($_POST['click3']) or isset($_POST['click
           $v_abaD = 'active';
           $v_abaC = null;
          }
-      //unset($_POST['clickCsaldo'],$_POST['click3'],$_POST['click4'],$_POST['click5']);
 //=============================consulta despesas futura===========================
 if(isset($_POST['pesquisaD1'])){
     $v_dateum     = $_POST['pesquisaD1'];
-    $v_consulta   = mysqli_query($conexao_um, "select id_des, valor, descricao, date_format(mes, '%m/%y') as data, mes from tb_despesa_fut where substr(mes,1,7) = '$v_dateum' order by 5 desc;");
-    $v_consultadf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_despesa_fut where substr(mes,1,7) = '$v_dateum';"));
+    $v_consulta   = mysqli_query($conexao_um, "select id_des, valor, descricao, date_format(mes, '%m/%y') as data, mes from tb_despesa_fut where substr(mes,1,7) = '$v_dateum' and login = '$v_loginp' order by 5 desc;");
+    $v_consultadf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_despesa_fut where substr(mes,1,7) = '$v_dateum' and login = '$v_loginp' and mes > now();"));
 }
 else{
-    $v_consulta = mysqli_query($conexao_um, "select id_des, valor, descricao, date_format(mes, '%m/%y') as data, mes from tb_despesa_fut order by 5 desc;");
-    $v_consultadf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_despesa_fut;"));
+    $v_consulta = mysqli_query($conexao_um, "select id_des, valor, descricao, date_format(mes, '%m/%y') as data, mes from tb_despesa_fut where login = '$v_loginp' and mes > now() order by 5 desc;");
+    $v_consultadf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_despesa_fut where login = '$v_loginp' and mes > now();"));
 }
 //=============================consulta Crédito futura===========================
 if(isset($_POST['pesquisaD2'])){
     $v_dateums     = $_POST['pesquisaD2'];
-    $v_consultas   = mysqli_query($conexao_quatro, "select id_saldo_fut, valor, descricao, date_format(data, '%m/%y'), data from tb_saldo_fut where substr(data,1,7) = '$v_dateums' order by 5 desc;");
-    $v_consultasf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_saldo_fut where substr(data,1,7) = '$v_dateums' order by 1 desc;"));
+    $v_consultas   = mysqli_query($conexao_quatro, "select id_saldo_fut, valor, descricao, date_format(data, '%m/%y'), data from tb_saldo_fut where substr(data,1,7) = '$v_dateums' and login = '$v_loginp' and data > now() order by 5 desc;");
+    $v_consultasf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_saldo_fut where substr(data,1,7) = '$v_dateums' and login = '$v_loginp'  and data > now() order by 1 desc;"));
 }
 else{
-    $v_consultas = mysqli_query($conexao_quatro, "select id_saldo_fut, valor, descricao, date_format(data, '%m/%y'), data from tb_saldo_fut order by 5 desc;");
-    $v_consultasf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_saldo_fut;"));
+    $v_consultas = mysqli_query($conexao_quatro, "select id_saldo_fut, valor, descricao, date_format(data, '%m/%y'), data from tb_saldo_fut where login = '$v_loginp' and data > now() order by 5 desc;");
+    $v_consultasf = mysqli_fetch_row(mysqli_query($conexao_tres, "select sum(valor) from tb_saldo_fut where login = '$v_loginp' and data > now();"));
 }
 ?>
 <!--======================inicio do HTML============================================-->
@@ -205,26 +221,12 @@ else{
                                       </div>
                                       </form>
                                   </div>
-                               <!-- ========================delete registro========================-->
-                               <div class="row">
-                                <form acition="projecao.php" method="post">
-                                   <div class="col-12 col-sm-4 col-md-2 col-lg-2 col-xl-2">
-                                           <label class="pesquis">
-                                               Excluir ID:
-                                           </label>
-                                           <input name="deleteId" type="number" min="0" class="pesquisaDI" required>
-                                   </div>
-                                   <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
-                                          <button type="submit" class="botaoPesquisaData"><img src="imagens/lixeira-red.png" alt="atualiza" width="60%"></button>
-                                   </div>
-                                 </form>
-                               </div>
                                <!--========inicio primeira tabela==========-->
                               <thead class="cabecalhoTabela">
                                 <tr>
-                                  <th scope="col">ID</th>
                                   <th scope="col">Valor</th>
                                   <th scope="col">Descrição</th>
+                                  <th scope="col">Delete</th>
                                   <th scope="col">Data</th>
                                 </tr>
                               </thead>
@@ -241,9 +243,9 @@ else{
                                       {                                  
                                  ?>
                                 <tr class="linhaTabela">
-                                  <th scope="row"><?php print_r($consulta_despesas[0]);?></th>
                                   <th scope="row"><?php print_r('R$: '.$consulta_despesas[1]);?></th>
                                   <td><?php print_r($consulta_despesas[2]);?></td>
+                                    <td><a href="projecao.php?deleteId=<?php print_r($consulta_despesas[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px"></a></td>
                                   <td><?php print_r($consulta_despesas[3]); }}?></td>    
                                 </tr>
                               </tbody>
@@ -251,8 +253,8 @@ else{
                               <tbody class="cabecalhoTabela">
                                <tr>
                                    
-                                  <th scope="col"></th>
                                   <th scope="col"><?php print_r('R$: '.$v_consultadf[0]); ?></th>
+                                  <th scope="col"></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
                                   
@@ -281,26 +283,12 @@ else{
                                       </div>
                                       </form>
                                   </div>
-                               <!-- ========================delete registro========================-->
-                               <div class="row">
-                                <form acition="projecao.php" method="post">
-                                   <div class="col-12 col-sm-4 col-md-2 col-lg-2 col-xl-2">
-                                           <label class="pesquis">
-                                               Excluir ID:
-                                           </label>
-                                           <input name="deleteIS" type="number" min="0" class="pesquisaDI" required>
-                                   </div>
-                                   <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
-                                          <button type="submit" class="botaoPesquisaData" name="click5" value="1"><img src="imagens/lixeira-red.png" alt="atualiza" width="60%"></button>
-                                   </div>
-                                 </form>
-                               </div>
                                <!--========inicio primeira tabela==========-->
                               <thead class="cabecalhoTabela">
                                 <tr>
-                                  <th scope="col">ID</th>
                                   <th scope="col">Valor</th>
                                   <th scope="col">Descrição</th>
+                                  <th scope="col">Delete</th>
                                   <th scope="col">Data</th>
                                 </tr>
                               </thead>
@@ -317,9 +305,9 @@ else{
                                       {                                  
                                  ?>
                                 <tr class="linhaTabela">
-                                  <th scope="row"><?php print_r($consulta_saldo[0]);?></th>
                                   <th scope="row"><?php print_r('R$: '.$consulta_saldo[1]);?></th>
                                   <td><?php print_r($consulta_saldo[2]);?></td>
+                                  <td><a href="projecao.php?deleteIS=<?php print_r($consulta_saldo[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px"></a></td>
                                   <td><?php print_r($consulta_saldo[3]); }}?></td>    
                                 </tr>
                               </tbody>
@@ -327,8 +315,8 @@ else{
                               <tbody class="cabecalhoTabela">
                                <tr>
                                    
-                                  <th scope="col"></th>
                                   <th scope="col"><?php print_r('R$: '.$v_consultasf[0]); ?></th>
+                                  <th scope="col"></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
                                   

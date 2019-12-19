@@ -18,14 +18,31 @@
 <!--Menus=================================================================-->
 <!--MOVIMENTAÇÃO-->
 <section class="container-fluid">
+<!--==================================================DESCRIÇÃO================================================================-->
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <h2></h2>
+        </div>
+    </div>
+<!--MOVIMENTAÇÃO FINANCEIRA-->
     <div class="row artigos">
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
-            <img src="imagens/salario-rec.jpg" alt="salário" width="40%" class="rounded-circle img_cent">
+            <div class="row justify-content-center">
+               <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <img src="imagens/salario-rec.jpg" alt="salário" width="100%" class="rounded-circle img_cent">
+               </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
             <h3 class="mov_text"><b>Movimentações Financeira</b></h3>
-            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%"> Despesa</li>
-            <p>Cadastro de despesa com definição de valores descrição, local e data tendo visão geral com soma de valores gasto das despesa com opção de filtra por data .</p>
-            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%"> Crédito</li>
-            <p>Cadastro do crédito com definição de valores, descrição e data tendo visão geral com soma de valores podendo filtra por data.</p>    
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Cadastro despesa</li>
+            <p>Cadastro de despesa do mês vigente detalhando valor, data, descrição e local.</p>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Cadastro do capital</li>
+            <p>Cadastro do capital do mês vigente com definição de valores, descrição e data tendo.</p>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Visualização despesas</li>
+            <p>visualização das despesas já feita podendo filtra por périodo ou dia.</p>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Visualização do capital</li>
+            <p>visualização do capital já recebido podendo filtra por périodo ou dia.</p>    
+                </div>
+            </div>
         </div>
     </div>
 <!--PROJEÇÃO DE DESPESAS DOS MESES A SEGUIR-->
@@ -33,23 +50,39 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
-            <img src="imagens/pessoa_tempo-rec.jpg" alt="salário" width="40%" class="rounded-circle img_centV">
-            <h3 class="mov_textV"><b>Projeção de Despesas dos Meses a Seguir</b></h3>
+            <div class="row justify-content-center">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <img src="imagens/pessoa_tempo-rec.jpg" alt="salário" width="100%" class="rounded-circle img_centV">
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <h3 class="mov_textV"><b>Projeção de Despesas e Saldo</b></h3>
             <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Cadastro das despesas futuras</li>
-            <p>Cadastros das despesas dos mês a posteriores para assim ter uma previsão de gasto de saldo e dividas dos meses a seguir.</p>
-            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Cadastro dos créditos futuros</li>
-            <p>Cadastros dos crédito dos mês a posteriores para assim ter uma previsão de gasto de saldo e dividas dos meses a seguir.</p>    
+            <p>Cadastros das despesas posteriores com valor, descrição e mês referente.</p>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Cadastro docapital futuros</li>
+            <p>Cadastros do capital posteriores com valor descrição e mês referente.</p>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Visualização das despesas futura.</li>
+            <p>Cadastros do despesas posteriores com valor descrição e mês referente.</p>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Visualização do Capital futuros</li>
+            <p>Cadastros do capital posteriores com valor descrição e mês referente.</p>    
+                </div>
+            </div>
         </div>
     </div>
 <!--VISÃO GERAL-->
     <div class="row artigos">
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
-            <img src="imagens/visao-rec.jpg" alt="salário" width="40%" class="rounded-circle img_cent">
+            <div class="row justify-content-center">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <img src="imagens/visao-rec.jpg" alt="salário" width="100%" class="rounded-circle img_cent">
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
             <h3 class="mov_text"><b>Visão Geral</b></h3>
             <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Projeção de saldo</li>
             <p>Projeção de saldo unifome diário e mensal do mês vigente.</p>
-            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Projeção de saldo do mês posterior</li>
-            <p>Projeção de saldo unifome diário e mensal do mês posterior.</p>
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Projeção de saldo de meses posteriores</li>
+            <p>Projeção de saldo unifome diário e mensal dos dois meses posteriores.</p>
+                </div>
+            </div>
         </div>
     </div>
     <!--lista de compras-->
@@ -57,12 +90,20 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 sub_artigo">
-            <img src="imagens/compras-rec.jpg" alt="salário" width="40%" class="rounded-circle img_centV">
+            <div class="row justify-content-center">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <img src="imagens/compras-rec.jpg" alt="salário" width="100%" class="rounded-circle img_centV">
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
             <h3 class="mov_textV"><b>Lista de Desejo</b></h3>
             <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Cadastro de compras</li>
             <p>Cadastro de lista de compras o que deseja compra com nível de prioridade e valores.</p>
-            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Organização da lista de compras</li>
-            <p>Ordenação da lista de compras por prioridades e valores.</p>    
+            <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Visualização da lista de compras</li>
+            <p>Visualizaçao da lista de compras ordernado por prioridade podendo deletar ou marcar como compradas.</p>
+                    <li><img src="imagens/moeda-peq.png" alt="moeda de ouro" width="3%">Update do item</li>
+            <p>modificação dos valores ou prioridade do item.</p>    
+                </div>
+            </div>
         </div>
     </div>
 </section>

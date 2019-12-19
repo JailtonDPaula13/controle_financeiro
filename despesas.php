@@ -7,76 +7,142 @@
 if( !isset($_SESSION["v_login"])){
     header("location:login.php?despesas=1");
 }
+else
+{
+    $v_logind  = $_SESSION["v_login"];
+}
+//================================consulta de tipo a cadastrar=============//
+$v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
 //=============================delete de registro=====================================================
 //despesa       
-     if(isset($_POST['deleteId']))
+     if(isset($_GET['deleteId']))
        {
-           $v_deleteD = $_POST['deleteId'];
-           $resultado = mysqli_query($conexao_seis, "delete from tb_despesa_mes where id_compra = '$v_deleteD';");
+           $v_logind  = $_SESSION["v_login"];
+           $v_deleteD = $_GET['deleteId'];
+           $resultado = mysqli_query($conexao_seis, "delete from tb_despesa_mes where id_compra = '$v_deleteD' and login = '$v_logind';");
        }
-    if(isset($_POST['deleteIC']))
+    if(isset($_GET['deleteIC']))
        {
-           $v_deleteC = $_POST['deleteIC'];
-           $resultado = mysqli_query($conexao_seis, "delete from tb_credito_mes where id_compra = '$v_deleteC';");
+           $v_deleteC = $_GET['deleteIC'];
+           $resultado = mysqli_query($conexao_seis, "delete from tb_credito_mes where id_compra = '$v_deleteC' and login = '$v_logind';");
        }
 //<!--==========================================insert tabela=================================================-->
-    
+    if(isset($_POST['real']))
+    {
     //modal despesa
-    $valor    =isset($_POST['real'])?$_POST['real']:"";
+    $valor    =$_POST['real'];
     $descricao=isset($_POST['descricao'])?$_POST['descricao']:null;
-    $local    =isset($_POST['local'])?$_POST['local']:null;
-    $data     =isset($_POST['data'])?$_POST['data']:null;
+    $local    =$_POST['local'];
+    $data     =$_POST['data'];
+    $tipo     =$_POST['ntipo'];
+        
+    $insert   =mysqli_query($conexao_um,"call pr_despesas ('$valor','$descricao','$local','$data','$v_logind',$tipo);");
+        
+    unset($_POST['real']);
+    }
     //modal crédito
-    $valorC    =isset($_POST['realD'])?$_POST['realD']:"";
-    $descricaoC=isset($_POST['descricaoC'])?$_POST['descricaoC']:null;
-    $dataC     =isset($_POST['dataC'])?$_POST['dataC']:null;
+    if(isset($_POST['realD']))
+    {
+        $valorC    =isset($_POST['realD'])?$_POST['realD']:"";
+        $descricaoC=isset($_POST['descricaoC'])?$_POST['descricaoC']:null;
+        $dataC     =isset($_POST['dataC'])?$_POST['dataC']:null;
     
-    $insert   =mysqli_query($conexao_um,"call pr_despesas ('$valor','$descricao','$local','$data');");
-    $insert   =mysqli_query($conexao_tres,"call pr_credito ('$valorC','$descricaoC','$dataC');");
+        $insert   =mysqli_query($conexao_tres,"call pr_credito ('$valorC','$descricaoC','$dataC','$v_logind');");
+        
+        unset($_POST['realD']);
+    }
+   
     
-    unset($_POST['realD'], $_POST['real']);
-//===========================================seleção de abas ao carregar=========================
-
-
+    
 //<!--===================consulta data e lista de despesas=======================================-->
 
     if(isset($_POST['pesquisaD1']) and isset($_POST['pesquisaD2']) and $_POST['pesquisaD1'] == $_POST['pesquisaD2'])
     {
 //                                       echo("valores iguais");
        $v_data_inicial = $_POST['pesquisaD1'];
-       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data = '$v_data_inicial';");
-       $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes where data = '$v_data_inicial' order by 5 desc;");
+       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data = '$v_data_inicial' and login = '$v_logind';");
+       $v_consulta = mysqli_query($conexao_dois,"select
+                                                    m.id_compra,
+                                                    m.valor, descricao,
+                                                    m.local,
+                                                    date_format(m.data, '%d/%m/%y'),
+                                                    c.ds_tipo
+                                                  from
+                                                    tb_despesa_mes m
+                                                  inner join
+                                                    tb_tipo_compras c on m.id_tipo = c.id_tipo
+                                                  where data = '$v_data_inicial' and login = '$v_logind' order by 5 desc;");
     }
     elseif(isset($_POST['pesquisaD1']) and isset($_POST['pesquisaD2']) and $_POST['pesquisaD1'] < $_POST['pesquisaD2'])
     {  
 //                                       echo("valores <>");
        $v_data_inicial = $_POST['pesquisaD1'];
        $v_data_final   = $_POST['pesquisaD2'];
-       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data between '$v_data_inicial' and '$v_data_final'");
-       $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes where data between '$v_data_inicial' and '$v_data_final' order by 5 desc;"); 
+       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where login = '$v_logind' and data between '$v_data_inicial' and '$v_data_final'");
+       $v_consulta = mysqli_query($conexao_dois,"select
+                                                    m.id_compra,
+                                                    m.valor, descricao,
+                                                    m.local,
+                                                    date_format(m.data, '%d/%m/%y'),
+                                                    c.ds_tipo
+                                                  from
+                                                    tb_despesa_mes m
+                                                  inner join
+                                                    tb_tipo_compras c on m.id_tipo = c.id_tipo
+                                                 where login = '$v_logind' and data between '$v_data_inicial' and '$v_data_final' order by 5 desc;"); 
     }
   elseif(isset($_POST['pesquisaD1']) and $_POST['pesquisaD2'] == null)
     {
 //                                       echo("valores um");
        $v_data_inicial = $_POST['pesquisaD1'];
-       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data = '$v_data_inicial';");
-       $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes where data = '$v_data_inicial' order by 5;");
+       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data = '$v_data_inicial' and login = '$v_logind';");
+       $v_consulta = mysqli_query($conexao_dois,"select
+                                                    m.id_compra,
+                                                    m.valor, descricao,
+                                                    m.local,
+                                                    date_format(m.data, '%d/%m/%y'),
+                                                    c.ds_tipo
+                                                  from
+                                                    tb_despesa_mes m
+                                                  inner join
+                                                    tb_tipo_compras c on m.id_tipo = c.id_tipo
+                                                 where data = '$v_data_inicial' and login = '$v_logind' order by 5;");
     }
   elseif(isset($_POST['pesquisaD1']) and isset($_POST['pesquisaD2']) and $_POST['pesquisaD1'] > $_POST['pesquisaD2'])
     {  
 //                                       echo("valores troc");
        $v_data_inicial = $_POST['pesquisaD1'];
        $v_data_final   = $_POST['pesquisaD2'];
-       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data between '$v_data_final' and '$v_data_inicial'");
-       $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes where data between '$v_data_final' and '$v_data_inicial' order by 5 desc;");
+       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where login = '$v_logind' and data between '$v_data_final' and '$v_data_inicial'");
+       $v_consulta = mysqli_query($conexao_dois,"select
+                                                    m.id_compra,
+                                                    m.valor, descricao,
+                                                    m.local,
+                                                    date_format(m.data, '%d/%m/%y'),
+                                                    c.ds_tipo
+                                                  from
+                                                    tb_despesa_mes m
+                                                  inner join
+                                                    tb_tipo_compras c on m.id_tipo = c.id_tipo
+                                                 where login = '$v_logind' and data between '$v_data_final' and '$v_data_inicial' order by 5 desc;");
     }
   else
     {  
 //                                       echo("valores");
        $v_data_inicial = isset($_POST['pesquisaD1'])?$_POST['pesquisaD1']:null;
        $v_data_final   = isset($_POST['pesquisaD2'])?$_POST['pesquisaD2']:null;
-       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes;");
-       $v_consulta = mysqli_query($conexao_dois,"select id_compra, valor, descricao, local, date_format(data, '%d/%m/%y') from tb_despesa_mes order by 5 desc;");
+       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where login = '$v_logind';");
+       $v_consulta = mysqli_query($conexao_dois,"select
+                                                    m.id_compra,
+                                                    m.valor, descricao,
+                                                    m.local,
+                                                    date_format(m.data, '%d/%m/%y'),
+                                                    c.ds_tipo
+                                                  from
+                                                    tb_despesa_mes m
+                                                  inner join
+                                                    tb_tipo_compras c on m.id_tipo = c.id_tipo
+                                                 where login = '$v_logind' order by 5 desc;");
     }
   $v_resltotal = mysqli_fetch_row($v_total);
 //<!--===================fim consulta data e lista de despesas=======================================-->
@@ -86,45 +152,45 @@ if( !isset($_SESSION["v_login"])){
     {
 //                                       echo("valores iguais");
        $v_data_inicial_C = $_POST['pesquisaD3'];
-       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where data = '$v_data_inicial_C';");
-       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where data = '$v_data_inicial_C' order by 4 desc;");
+       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where data = '$v_data_inicial_C' and login = '$v_logind';");
+       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where data = '$v_data_inicial_C' and login = '$v_logind' order by 4 desc;");
     }
     elseif(isset($_POST['pesquisaD3']) and isset($_POST['pesquisaD4']) and $_POST['pesquisaD3'] < $_POST['pesquisaD4'])
     {  
 //                                       echo("valores <>");
        $v_data_inicial_C = $_POST['pesquisaD3'];
        $v_data_final   = $_POST['pesquisaD4'];
-       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where data between '$v_data_inicial_C' and '$v_data_final'");
-      $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where data between '$v_data_inicial_C' and '$v_data_final' order by 4 desc;");
+       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where login = '$v_logind' and data between '$v_data_inicial_C' and '$v_data_final'");
+      $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where login = '$v_logind' and data between '$v_data_inicial_C' and '$v_data_final' order by 4 desc;");
     }
   elseif(isset($_POST['pesquisaD3']) and $_POST['pesquisaD4'] == null)
     {
 //                                       echo("valores um");
        $v_data_inicial_C = $_POST['pesquisaD3'];
-       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where data = '$v_data_inicial_C';");
-       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where data = '$v_data_inicial_C' order by 4 desc;");
+       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where data = '$v_data_inicial_C' and login = '$v_logind';");
+       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where data = '$v_data_inicial_C' and login = '$v_logind' order by 4 desc;");
     }
   elseif(isset($_POST['pesquisaD3']) and isset($_POST['pesquisaD4']) and $_POST['pesquisaD3'] > $_POST['pesquisaD4'])
     {  
 //                                       echo("valores troc");
        $v_data_inicial_C = $_POST['pesquisaD3'];
        $v_data_final   = $_POST['pesquisaD4'];
-       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where data between '$v_data_final' and '$v_data_inicial_C'");
-       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where data between '$v_data_final' and '$v_data_inicial_C' order by 4 desc;");
+       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where login = '$v_logind' and data between '$v_data_final' and '$v_data_inicial_C'");
+       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where login = '$v_logind' and data between '$v_data_final' and '$v_data_inicial_C' order by 4 desc;");
     }
   else
     {  
 //                                       echo("valores");
        $v_data_inicial_C = isset($_POST['pesquisaD3'])?$_POST['pesquisaD3']:null;
        $v_data_final   = isset($_POST['pesquisaD4'])?$_POST['pesquisaD4']:null;
-       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes;");
-       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes order by 4 desc;");
+       $v_total_h        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_credito_mes where login = '$v_logind';");
+       $v_consulta_C = mysqli_query($conexao_quatro,"select id_compra, valor, descricao, date_format(data, '%d/%m/%y') from tb_credito_mes where login = '$v_logind' order by 4 desc;");
     }
   $v_resltotal_C = mysqli_fetch_row($v_total_h);
 
 //<!--===================fim consulta data e lista de crédito=======================================-->
 //=======================================aba crédito ou despesa ao carregar?===============================
-      if(isset($_POST['clickC']) or isset($_POST['click']) or isset($_POST['click3']) or isset($_POST['click4']))
+      if(isset($_POST['clickC']) or isset($_POST['click']) or isset($_GET['deleteIC']) or isset($_POST['click4']))
          {
             $v_abaC = 'active';
             $v_abaD = null;
@@ -134,7 +200,7 @@ if( !isset($_SESSION["v_login"])){
           $v_abaD = 'active';
           $v_abaC = null;
          }
-      unset($_POST['clickC'], $_POST['click'], $_POST['click3'],$_POST['click4']);
+      unset($_POST['clickC'], $_POST['click'], $_GET['deleteIC'],$_POST['click4']);
    
   ?>
 <!--inicio html =============================================================================-->
@@ -186,6 +252,12 @@ if( !isset($_SESSION["v_login"])){
                     <input name="local" id="local" type="text" size="20" maxlength="50" placeholder="Budega do Madruga"><br>
                     <label>DATA:</label><br>
                     <input name="data" id="data" type="date" required><br>
+                    <label>TIPO:</label><br>
+                    <select name="ntipo">
+                        <?php while($v_rtipo = mysqli_fetch_row($v_tipo)){ ?>
+                        <option value="<?php print_r($v_rtipo[0]); ?>"><?php print_r($v_rtipo[1]); ?></option>
+                        <?php } ?>
+                    </select>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -261,27 +333,14 @@ if( !isset($_SESSION["v_login"])){
                                       </div>
                                       </form>
                                   </div>
-                               <!--========================delete registro========================-->
-                               <div class="row">
-                                       <form acition="despesas.php" method="post">
-                                   <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                           <label class="pesquis">
-                                               Excluir ID:
-                                           </label>
-                                           <input name="deleteId" type="number" min="0" class="pesquisaDI" required>
-                                   </div>
-                                   <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1">
-                                          <button type="submit" class="botaoPesquisaData"><img src="imagens/lixeira-red.png" alt="atualiza" width="60%"></button>
-                                   </div>
-                                       </form>
-                               </div>
                                <!--========inicio primeira tabela==========-->
                               <thead class="cabecalhoTabela">
                                 <tr>
-                                  <th scope="col">ID</th>
                                   <th scope="col">Valor</th>
                                   <th scope="col">Descrição</th>
                                   <th scope="col">Local</th>
+                                  <th scope="col">Delete</th>
+                                  <th scope="col">TIPO</th>
                                   <th scope="col">Data</th>
                                 </tr>
                               </thead>
@@ -298,19 +357,22 @@ if( !isset($_SESSION["v_login"])){
                                       {                                  
                                  ?>
                                 <tr class="linhaTabela">
-                                  <th scope="row"><?php print_r($v_resultado[0]);?></th>
-                                  <th scope="row"><?php print_r($v_resultado[1]);?></th>
+                                  <th scope="row"><?php print_r("R$: ".$v_resultado[1]);?></th>
                                   <td><?php print_r($v_resultado[2]);?></td>
                                   <td><?php print_r($v_resultado[3]);?></td>
-                                  <td><?php print_r($v_resultado[4]); }}?></td>
+                                  <th scope="row"><a href="despesas.php?deleteId=<?php print_r($v_resultado[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px;"></a></th>
+                                  <td><?php print_r($v_resultado[5]);?></td>
+                                  <td><?php print_r($v_resultado[4]);?></td>
+                                <?php }} ?>
                                 </tr>
                               </tbody>
                             <!--========total tabela de despesa===============-->
                               <tbody class="cabecalhoTabela">
                                <tr>
                                    
-                                  <th scope="col"></th>
                                   <th scope="col"><?php print_r('R$: '.$v_resltotal[0]); ?></th>
+                                  <th scope="col"></th>
+                                  <th scope="col"></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
@@ -344,26 +406,12 @@ if( !isset($_SESSION["v_login"])){
                                       </div>
                                   </form>
                                   </div>
-                                     <!--========================delete registro credito========================-->
-                               <div class="row">
-                                       <form acition="despesas.php" method="post">
-                                   <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                                           <label class="pesquis">
-                                               Excluir ID:
-                                           </label>
-                                           <input name="deleteIC" type="number" min="0" class="pesquisaDI" required>
-                                   </div>
-                                   <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1">
-                                          <button type="submit" class="botaoPesquisaData" name="click3" value="1"><img src="imagens/lixeira-red.png" alt="atualiza" width="60%"></button>
-                                   </div>
-                                       </form>
-                               </div>
                        <!--=============tabela dois=================-->
                               <thead class="cabecalhoTabela">
                                 <tr>
-                                  <th scope="col">ID</th>
                                   <th scope="col">Valor</th>
                                   <th scope="col">Descrição</th>
+                                  <th scope="col">Delete</th>
                                   <th scope="col">Data</th>
                                 </tr>
                               </thead>
@@ -376,17 +424,17 @@ if( !isset($_SESSION["v_login"])){
                                       {                                  
                                  ?>
                                 <tr class="linhaTabela">
-                                  <th scope="row"><?php print_r($v_resultado_C[0]);?></th>
                                   <th scope="row"><?php print_r('R$: '.$v_resultado_C[1]);?></th>
                                   <td ><?php print_r($v_resultado_C[2]);?></td>
+                                    <th scope="row"><a href="despesas.php?deleteIC=<?php print_r($v_resultado_C[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px;"></a></th>
                                   <td ><?php print_r($v_resultado_C[3]);}}?></td>
                                 </tr>
                               </tbody>
                                 <!--===========total tabela dois crédito================-->
                               <tbody class="cabecalhoTabela">
                                <tr>
-                                  <th scope="col"></th>
                                   <th scope="col"><?php print_r('R$: '.$v_resltotal_C[0]); ?></th>
+                                  <th scope="col"></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
                                 </tr>
@@ -403,7 +451,7 @@ if( !isset($_SESSION["v_login"])){
 </div>
 <?php
     include_once("rodape.php");
-    if(!$conexao_seis or !$conexao_um or !$conexao_tres or !$conexao_dois or !$conexao_quatro or !$conexao_cinco )
+    if(!$conexao_seis or !$conexao_um or !$conexao_tres or !$conexao_dois or !$conexao_quatro or !$conexao_cinco or !$conexao_sete)
     {
          echo("<script> alert('Erro ao conectar no banco!!!') </script>");
     }

@@ -8,20 +8,25 @@ if(!$_SESSION["v_login"])
 {
     header("location:login.php?lista=1");
 }
+else
+{
+    $v_loginl = $_SESSION["v_login"];
+}
 //=====================================delete registro=====================================================================//
-   if(isset($_GET['delete']))
-   {
-       $v_delete = $_GET['delete'];
-       $d_conexao = mysqli_query($conexao_tres,"delete from tb_lista where  id_lista = '$v_delete';");
-       unset($_GET['delete']);
-   }
+if(isset($_GET['delete']))
+{
+   $v_delete = $_GET['delete'];
+   $d_conexao = mysqli_query($conexao_tres,"delete from tb_lista where  id_lista = '$v_delete' and login = '$v_loginl';");
+   unset($_GET['delete']);
+}
 //=====================================ok registro=====================================================================//
-   if(isset($_GET['fim']))
-   {
-       $v_update = $_GET['fim'];
-       $d_conexaoup = mysqli_query($conexao_tres,"update tb_lista set  comprado = 'S' where id_lista = '$v_update';");
-       unset($_GET['fim']);
-   }
+if(isset($_GET['fim']))
+{
+   $v_update = $_GET['fim'];
+   $d_conexaoup = mysqli_query($conexao_tres,"update tb_lista set  comprado = 'S' where id_lista = '$v_update' and login = '$v_loginl';");
+
+   unset($_GET['fim']);
+}
 //====================================colsulta opções======================================//
 $consulta_op = mysqli_query($conexao_quatro,"select * from tb_status;");
 if(!$consulta_op){
@@ -32,7 +37,7 @@ if(isset($_POST['valor'])){
     $v_valor      = $_POST['valor'];
     $v_prioridade = $_POST['prioridade'];
     $v_btnenvio = $_POST['enviobtn'];
-    $v_consulta   = mysqli_query($conexao_cinco, "update tb_lista set valor = '$v_valor', status =  '$v_prioridade', data = now()  where id_lista =  '$v_btnenvio';");
+    $v_consulta   = mysqli_query($conexao_cinco, "update tb_lista set valor = '$v_valor', status =  '$v_prioridade', data = now()  where id_lista =  '$v_btnenvio' and login = '$v_loginl';");
 }
 //====================================insert na tabela=====================================//
     //variavel de preenchimento
@@ -68,9 +73,9 @@ if(isset($_POST['valor'])){
             $v_prioridade_ins = $_POST['prioridade'];
             
             mysqli_query($conexao_um,"insert into tb_lista	
-            (id_lista,descricao,valor,status,imagen)
+            (id_lista,descricao,valor,status,imagen,login)
             values
-            (null,upper('$v_decricao_ins'),'$v_valor_ins','$v_prioridade_ins','$v_name');"); 
+            (null,upper('$v_decricao_ins'),'$v_valor_ins','$v_prioridade_ins','$v_name','$v_loginl');"); 
         }
 
         
@@ -86,7 +91,10 @@ if(isset($_POST['valor'])){
                                                 l.imagen
                                             from tb_lista l
                                             inner join tb_status s on s.id_status = l.status
-                                            where comprado = 'N' order by l.status;");
+                                            where
+                                            comprado = 'N' and
+                                            login = '$v_loginl'
+                                            order by l.status;");
      if(!$consulta){
           echo("<script>alert('erro ao conectar ao banco !!!')</script>");
      }

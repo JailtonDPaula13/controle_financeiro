@@ -12,4 +12,6 @@
 
    $conexao_seis = mysqli_connect('localhost','root','','db_money');
 
+   $conexao_sete = mysqli_connect('localhost','root','','db_money');
+
 ?>

@@ -68,7 +68,7 @@ if(isset($_POST['enviocad']))
                     <input type="password" name="passtwo" maxlength="6" required><br>
                     <label>E-MAIL:</label><br>
                     <input type="email" maxlength="50" placeholder="exemple@exemple.com" name="emailcad" value="<?php if(isset($v_email)){print_r($v_email);} ?>"><br>
-                    <input type="submit" name="enviocad" id="envioc" value="CADASTRO">
+                    <input type="submit" name="enviocad" id="envioc" value="CADASTRAR">
                 </form> 
                 <?php if(isset($verro)){ print_r("<p id='msg'>$verro</p>");}?>
             </div>

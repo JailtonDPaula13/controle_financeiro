@@ -4,21 +4,26 @@
     require_once ('conexao/conect.php');
     date_default_timezone_set('America/Fortaleza');
 //=================================verificar acesso========================================//
-if( !isset($_SESSION["v_login"])){
+if( !isset($_SESSION["v_login"]))
+{
     header("location:login.php?visao=1");
+}
+else
+{
+    $v_loging = $_SESSION["v_login"];
 }
 //======================================Consulta gasto diário==============================//
    
-   $v_conct1 = mysqli_fetch_row(mysqli_query($conexao_um,"select * from vw_valor_d;"));
-   $v_conct2 = mysqli_fetch_row(mysqli_query($conexao_dois,"select * from vw_valor_m;"));
-   $v_conct3 = mysqli_fetch_row(mysqli_query($conexao_tres,"select fn_saldo_futuro(1);"));
-   $v_conct4 = mysqli_fetch_row(mysqli_query($conexao_quatro,"select fn_saldo_futuro_dia(1);"));
-   $v_conct5 = mysqli_fetch_row(mysqli_query($conexao_cinco,"select fn_saldo_futuro(2);"));
-   $v_conct6 = mysqli_fetch_row(mysqli_query($conexao_seis,"select fn_saldo_futuro_dia(2);"));
+   $v_conct1 = mysqli_fetch_row(mysqli_query($conexao_um,"select fn_saldo_dia('$v_loging');"));
+   $v_conct2 = mysqli_fetch_row(mysqli_query($conexao_dois,"select fn_saldo_mes('$v_loging');"));
+   $v_conct3 = mysqli_fetch_row(mysqli_query($conexao_tres,"select fn_saldo_futuro(1,'$v_loging');"));
+   $v_conct4 = mysqli_fetch_row(mysqli_query($conexao_quatro,"select fn_saldo_futuro_dia(1,'$v_loging');"));
+   $v_conct5 = mysqli_fetch_row(mysqli_query($conexao_cinco,"select fn_saldo_futuro(2,'$v_loging');"));
+   $v_conct6 = mysqli_fetch_row(mysqli_query($conexao_seis,"select fn_saldo_futuro_dia(2,'$v_loging');"));
    
    if(!$conexao_um or !$v_conct2 or !$v_conct3 or !$v_conct4 or !$v_conct5 or !$v_conct6)
    {
-       echo("erro de conexão na projeção do mês");
+       echo("<script>alert('erro de conexão na projeção do mês')</script>");
    }
 //=====projeção de data=======================================================================//
 

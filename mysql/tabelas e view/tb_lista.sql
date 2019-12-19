@@ -6,7 +6,9 @@ create table tb_lista
    status int(1) not null,
    data date not null default now(),
    comprado enum('S','N') not null default 'N',
-   imagen varchar(100)
+   imagen varchar(100),
+   login varchar(10) not null
 );
 
 alter table tb_lista add constraint uq_prod unique(descricao);
+alter table tb_lista add constraint fk_login_lista foreign key(login) references tb_usuario(login);

@@ -6,13 +6,17 @@ if(!$_SESSION["v_login"])
 {
     header("location:login.php?lista=1");
 }
+else
+{
+    $v_loginup = $_SESSION["v_login"];
+}
 //=================================consulta=================================================/
 if(isset($_GET['update']))
 {
     
     $consulta       = $_GET['update'];
     $consulta_opcao = mysqli_query($conexao_dois,"select * from tb_status;");
-    $query          = mysqli_fetch_row(mysqli_query($conexao_um, "select id_lista,descricao,valor,status,date_format(data,'%d/%m/%y') ,comprado,imagen from tb_lista where id_lista = '$consulta';"));
+    $query          = mysqli_fetch_row(mysqli_query($conexao_um, "select id_lista,descricao,valor,status,date_format(data,'%d/%m/%y') ,comprado,imagen from tb_lista where id_lista = '$consulta' and login = '$v_loginup';"));
     if(!$query or !$consulta_opcao){
         echo("<script>alert('Erro ao conectar no banco !!!')</script>");
     }

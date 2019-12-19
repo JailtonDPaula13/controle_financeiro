@@ -22,11 +22,7 @@ body{
 .img_cent{
     border: 2px dashed #000;
     box-shadow: 0 0 5px #000;
-    float: left;
     margin-right: 25px;
-}
-.mov_text{
-/*    float: right;*/
 }
 li{
     
@@ -52,6 +48,6 @@ text-align: left;
 .img_centV{
     border: 2px dashed #fff;
     box-shadow: 0 0 5px #000;
-    float: left;
+/*    float: left;*/
     margin-right: 25px;
 }
