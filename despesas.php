@@ -12,8 +12,9 @@ else
     $v_logind  = $_SESSION["v_login"];
 }
 //================================consulta de tipo a cadastrar=============//
-$v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
-//=============================delete de registro=====================================================
+ $v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
+ $v_tipo2 = mysqli_query($conexao_um,"select * from tb_tipo_compras;");
+//===============$v_tipo;==============delete de registro=====================================================
 //despesa       
      if(isset($_GET['deleteId']))
        {
@@ -55,31 +56,60 @@ $v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
     
     
 //<!--===================consulta data e lista de despesas=======================================-->
+                                        //====valor do tipo na pesquisa das despesas====//
+                                            if($_POST['npsqtipo'] == 0)
+                                            {
+                                                $v_tipopqs = 'is not null';
+                                            }
+                                            else
+                                            {
+                                                $v_tipopqs = "=".$_POST['npsqtipo'];
+                                            }
+                                        //======valores pesquisas===//
+                                           $v_data_inicial = isset($_POST['pesquisaD1'])?$_POST['pesquisaD1']:null;
+                                           $v_data_final   = isset($_POST['pesquisaD2'])?$_POST['pesquisaD2']:null;
+                                        //==========================//
 
+    //valores iguais nas pesquisas
     if(isset($_POST['pesquisaD1']) and isset($_POST['pesquisaD2']) and $_POST['pesquisaD1'] == $_POST['pesquisaD2'])
     {
-//                                       echo("valores iguais");
-       $v_data_inicial = $_POST['pesquisaD1'];
-       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data = '$v_data_inicial' and login = '$v_logind';");
-       $v_consulta = mysqli_query($conexao_dois,"select
-                                                    m.id_compra,
-                                                    m.valor, descricao,
-                                                    m.local,
-                                                    date_format(m.data, '%d/%m/%y'),
-                                                    c.ds_tipo
+       $v_total        = mysqli_query($conexao_cinco,"select
+                                                        sum(valor)
+                                                      from
+                                                        tb_despesa_mes
+                                                      where
+                                                            data = '$v_data_inicial'
+                                                        and login = '$v_logind'
+                                                        and id_tipo $v_tipopqs;");
+       $v_consulta     = mysqli_query($conexao_dois,"select
+                                                        m.id_compra,
+                                                        m.valor,
+                                                        m.descricao,
+                                                        m.local,
+                                                        date_format(m.data, '%d/%m/%y'),
+                                                        c.ds_tipo
                                                   from
                                                     tb_despesa_mes m
                                                   inner join
                                                     tb_tipo_compras c on m.id_tipo = c.id_tipo
-                                                  where data = '$v_data_inicial' and login = '$v_logind' order by 5 desc;");
+                                                  where
+                                                         data = '$v_data_inicial'
+                                                     and login = '$v_logind'
+                                                     and m.id_tipo $v_tipopqs
+                                                         order by 5 desc;");
     }
+    //valores diferentes nas pesquisas
     elseif(isset($_POST['pesquisaD1']) and isset($_POST['pesquisaD2']) and $_POST['pesquisaD1'] < $_POST['pesquisaD2'])
     {  
-//                                       echo("valores <>");
-       $v_data_inicial = $_POST['pesquisaD1'];
-       $v_data_final   = $_POST['pesquisaD2'];
-       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where login = '$v_logind' and data between '$v_data_inicial' and '$v_data_final'");
-       $v_consulta = mysqli_query($conexao_dois,"select
+       $v_total        = mysqli_query($conexao_cinco,"select
+                                                       sum(valor)
+                                                      from
+                                                       tb_despesa_mes
+                                                      where
+                                                           login = '$v_logind'
+                                                       and data between '$v_data_inicial' and '$v_data_final'
+                                                       and id_tipo $v_tipopqs;");
+       $v_consulta     = mysqli_query($conexao_dois,"select
                                                     m.id_compra,
                                                     m.valor, descricao,
                                                     m.local,
@@ -89,14 +119,25 @@ $v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
                                                     tb_despesa_mes m
                                                   inner join
                                                     tb_tipo_compras c on m.id_tipo = c.id_tipo
-                                                 where login = '$v_logind' and data between '$v_data_inicial' and '$v_data_final' order by 5 desc;"); 
+                                                 where
+                                                        login = '$v_logind'
+                                                    and data between '$v_data_inicial'
+                                                    and '$v_data_final'
+                                                    and m.id_tipo $v_tipopqs
+                                                    order by 5 desc;"); 
     }
+  //informado apenas um valor nas pesquisas
   elseif(isset($_POST['pesquisaD1']) and $_POST['pesquisaD2'] == null)
     {
-//                                       echo("valores um");
-       $v_data_inicial = $_POST['pesquisaD1'];
-       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where data = '$v_data_inicial' and login = '$v_logind';");
-       $v_consulta = mysqli_query($conexao_dois,"select
+       $v_total        = mysqli_query($conexao_cinco,"select
+                                                        sum(valor)
+                                                      from
+                                                        tb_despesa_mes
+                                                      where
+                                                             data = '$v_data_inicial'
+                                                         and login = '$v_logind'
+                                                         and id_tipo $v_tipopqs;");
+       $v_consulta     = mysqli_query($conexao_dois,"select
                                                     m.id_compra,
                                                     m.valor, descricao,
                                                     m.local,
@@ -106,15 +147,24 @@ $v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
                                                     tb_despesa_mes m
                                                   inner join
                                                     tb_tipo_compras c on m.id_tipo = c.id_tipo
-                                                 where data = '$v_data_inicial' and login = '$v_logind' order by 5;");
+                                                 where
+                                                        data = '$v_data_inicial'
+                                                    and login = '$v_logind'
+                                                    and m.id_tipo $v_tipopqs
+                                                    order by 5;");
     }
+  //informado o valor maior antes do menor
   elseif(isset($_POST['pesquisaD1']) and isset($_POST['pesquisaD2']) and $_POST['pesquisaD1'] > $_POST['pesquisaD2'])
     {  
-//                                       echo("valores troc");
-       $v_data_inicial = $_POST['pesquisaD1'];
-       $v_data_final   = $_POST['pesquisaD2'];
-       $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where login = '$v_logind' and data between '$v_data_final' and '$v_data_inicial'");
-       $v_consulta = mysqli_query($conexao_dois,"select
+       $v_total        = mysqli_query($conexao_cinco,"select
+                                                        sum(valor)
+                                                      from
+                                                        tb_despesa_mes
+                                                      where
+                                                        login = '$v_logind'
+                                                        and data between '$v_data_final' and '$v_data_inicial'
+                                                        and m.id_tipo $v_tipopqs;");
+       $v_consulta     = mysqli_query($conexao_dois,"select
                                                     m.id_compra,
                                                     m.valor, descricao,
                                                     m.local,
@@ -124,13 +174,15 @@ $v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
                                                     tb_despesa_mes m
                                                   inner join
                                                     tb_tipo_compras c on m.id_tipo = c.id_tipo
-                                                 where login = '$v_logind' and data between '$v_data_final' and '$v_data_inicial' order by 5 desc;");
+                                                 where
+                                                        login = '$v_logind'
+                                                    and data between '$v_data_final'and '$v_data_inicial'
+                                                    and m.id_tipo $v_tipopqs
+                                                    order by 5 desc;");
     }
+  //sem pesquisa
   else
     {  
-//                                       echo("valores");
-       $v_data_inicial = isset($_POST['pesquisaD1'])?$_POST['pesquisaD1']:null;
-       $v_data_final   = isset($_POST['pesquisaD2'])?$_POST['pesquisaD2']:null;
        $v_total        = mysqli_query($conexao_cinco, "select sum(valor)  from tb_despesa_mes where login = '$v_logind';");
        $v_consulta = mysqli_query($conexao_dois,"select
                                                     m.id_compra,
@@ -142,7 +194,9 @@ $v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
                                                     tb_despesa_mes m
                                                   inner join
                                                     tb_tipo_compras c on m.id_tipo = c.id_tipo
-                                                 where login = '$v_logind' order by 5 desc;");
+                                                 where
+                                                        login = '$v_logind'
+                                                    order by 5 desc;");
     }
   $v_resltotal = mysqli_fetch_row($v_total);
 //<!--===================fim consulta data e lista de despesas=======================================-->
@@ -323,6 +377,15 @@ $v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
                                           <label class="pesquis">A:&nbsp;&nbsp;</label>
                                           <input name="pesquisaD2" id="pesquisaD2" type = date class="pesquisaDI">
                                       </div>
+                                      <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                                          <label class="pesquis">TIPO:&nbsp;&nbsp;</label>
+                                          <select name="npsqtipo" class="pesquisaDI">
+                                              <option value="0" class="opttipo">TODOS</option>
+                                                <?php while($v_psqtipo = mysqli_fetch_row($v_tipo2)){ ?>
+                                              <option value="<?php print_r($v_psqtipo[0]); ?>" class="opttipo"><?php print_r($v_psqtipo[1]); ?></option>
+                                                <?php } ?>
+                                          </select>
+                                      </div>
                                       <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
                                           <button type="submit" class="botaoPesquisaData"><img src="imagens/tempo-pq.png" alt="tempo" width="60%"></button>
                                       </div>
@@ -360,9 +423,29 @@ $v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
                                   <th scope="row"><?php print_r("R$: ".$v_resultado[1]);?></th>
                                   <td><?php print_r($v_resultado[2]);?></td>
                                   <td><?php print_r($v_resultado[3]);?></td>
-                                  <th scope="row"><a href="despesas.php?deleteId=<?php print_r($v_resultado[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px;"></a></th>
+                                  <th scope="row"><a data-toggle="modal" data-target="#modalExDesp<?php print_r($v_resultado[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px;" class="excList rounded-circle"></a></th>
                                   <td><?php print_r($v_resultado[5]);?></td>
                                   <td><?php print_r($v_resultado[4]);?></td>
+                                  <!--Modal 3 exclusão despesas-->
+                                    <div class="modal fade" id="modalExDesp<?php print_r($v_resultado[0]);?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h4>Deseja excluir o seguinte item?</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                  <center><h6 id="descriDel">!!!<?php print_r(" $v_resultado[2] ");?>!!!</h6></center>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                             <a href="despesas.php?deleteId=<?php print_r($v_resultado[0]); ?>"><button type="submit" class="btn btn-primary">Sim</button></a>
+                                              </div>
+                                            </div>
+                                          </div>
+                                     </div>
                                 <?php }} ?>
                                 </tr>
                               </tbody>
@@ -426,8 +509,29 @@ $v_tipo = mysqli_query($conexao_sete,"select * from tb_tipo_compras;");
                                 <tr class="linhaTabela">
                                   <th scope="row"><?php print_r('R$: '.$v_resultado_C[1]);?></th>
                                   <td ><?php print_r($v_resultado_C[2]);?></td>
-                                    <th scope="row"><a href="despesas.php?deleteIC=<?php print_r($v_resultado_C[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px;"></a></th>
-                                  <td ><?php print_r($v_resultado_C[3]);}}?></td>
+                                    <th scope="row"><a data-toggle="modal" data-target="#modalExCred<?php print_r($v_resultado_C[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px;" class="excList rounded-circle"></a></th>
+                                  <td ><?php print_r($v_resultado_C[3]);?></td>
+                                  <!--Modal 4 exclusão crédito-->
+                                    <div class="modal fade" id="modalExCred<?php print_r($v_resultado_C[0]);?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h4>Deseja excluir o seguinte item?</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                  <center><h6 id="descriDel">!!!<?php print_r(" $v_resultado_C[2] ");?>!!!</h6></center>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                             <a href="despesas.php?deleteIC=<?php print_r($v_resultado_C[0]); ?>"><button type="submit" class="btn btn-primary">Sim</button></a>
+                                              </div>
+                                            </div>
+                                          </div>
+                                     </div>
+                                    <?php }} ?>
                                 </tr>
                               </tbody>
                                 <!--===========total tabela dois crédito================-->

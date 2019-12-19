@@ -101,3 +101,17 @@ td{
     background-color:#002885;
     color: #fff;
 }
+.opttipo{
+    border:none;
+}
+#descriDel{
+    color: #fff;
+    font-weight: 400;
+    font-family: 'Ibarra Real Nova', serif;
+}
+.excList:hover{
+    border-top: 2px solid red; 
+}
+.excList{
+    border-top: 2px solid transparent; 
+}
