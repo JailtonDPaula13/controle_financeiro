@@ -104,14 +104,12 @@ td{
 .opttipo{
     border:none;
 }
-#descriDel{
+.descriDel{
     color: #fff;
     font-weight: 400;
     font-family: 'Ibarra Real Nova', serif;
 }
 .excList:hover{
-    border-top: 2px solid red; 
+    background-color: red; 
 }
-.excList{
-    border-top: 2px solid transparent; 
-}
+

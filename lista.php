@@ -169,12 +169,63 @@ if(isset($_POST['valor'])){
                             <p class="card-text listap"><?php print_r("<b>Valor: </b>R$".$v_consulta_lista[2]);?></p>
                             <p class="card-text listap"><?php print_r("<b>Prioridade: </b>".utf8_encode($v_consulta_lista[3]));?></p>
                             <p class="card-text listap"><?php print_r("<b>Alterado: </b>".$v_consulta_lista[4]);?></p>
-                            <a href="lista.php?delete=<?php print_r($v_consulta_lista[0]);?>" ><img src="imagens/lixeira-red.png" width="30px;" height="30px;" class=" deleteb"></a>
-                            <a href="update.php?update=<?php print_r($v_consulta_lista[0]);?>" ><img src="imagens/update.png" width="30px;" height="30px;" class=" deleteb"></a>
-                            <a href="lista.php?fim=<?php print_r($v_consulta_lista[0]);?>"><img src="imagens/certo.png" width="30px;" height="30px;" class=" deleteb fimupdate "></a>
+                            <center>
+                                <a data-toggle="modal" data-target="#exclusaoLista<?php print_r($v_consulta_lista[0]);?>">
+                                    <img src="imagens/lixeira-red.png" width="15%" class=" deleteb">
+                                </a>
+                                <a href="update.php?update=<?php print_r($v_consulta_lista[0]);?>" >
+                                    <img src="imagens/update.png" width="15%" class="deleteb"></a>
+                                <a data-toggle="modal" data-target="#compraLista<?php print_r($v_consulta_lista[0]);?>">
+                                    <img src="imagens/certo.png" width="15%" class=" deleteb fimupdate">
+                                </a>
+                            </center>
                           </div>
                     </div>
                 </div>
+                        <!--modal delete-->
+                        <div class="modal fade" id="exclusaoLista<?php print_r($v_consulta_lista[0]);?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4>deseja retirar da sua lista de compra o item a seguir?</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <h5 class="objList"><?php print_r(utf8_encode($v_consulta_lista[1]));?></h5>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                <a href="lista.php?delete=<?php print_r($v_consulta_lista[0]);?>">
+                                  <button type="submit" class="btn btn-primary">Sim</button>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--modal compra-->
+                        <div class="modal fade" id="compraLista<?php print_r($v_consulta_lista[0]);?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4>O item a seguir foi comprado?</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <h5 class="objList"><?php print_r(utf8_encode($v_consulta_lista[1]));?></h5>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                <a href="lista.php?fim=<?php print_r($v_consulta_lista[0]);?>">
+                                  <button type="submit" class="btn btn-primary">Sim</button>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     <?php } ?>
             </div>
         </section>

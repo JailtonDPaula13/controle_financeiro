@@ -77,3 +77,10 @@ input:hover{
 .fimupdate:hover{
    background-color: #13CC00;
 }
+/*===========================modal sim não============================================================*/
+.objList{
+    color:#fff;
+    text-align: center;
+    font-family: 'Ibarra Real Nova', serif;
+    text-shadow: 0 0 2px #000;
+}
