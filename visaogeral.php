@@ -38,7 +38,7 @@ $v_datap = getdate();
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Visão Geral</title>
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/visaogeral.css">
         <link rel="shortcut icon" href="/imagens/cifrao_origen.png" >
     </head>

@@ -105,7 +105,7 @@ if(isset($_POST['valor'])){
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Lista de Compra</title>
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/lista.css">
         <link rel="shortcut icon" href="/imagens/cifrao_origen.png" >
     </head>
