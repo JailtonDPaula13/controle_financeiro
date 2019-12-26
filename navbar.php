@@ -1,8 +1,15 @@
 
 <style>
+/*===fonts=====*/
+    @import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
+/*font-family: 'Bebas Neue', cursive;*/
+/*===fonts=====*/
+    body{
+        background-color: #0939A6;
+    }
     .navbar{
-        background-color:rgb(0, 31, 104);
-        border-bottom: 4px solid #005389;
+        background-color:#0A2D7F;
+        border-bottom: 4px solid #6F88C0;
         
     }
     .loginn{
@@ -19,23 +26,32 @@
     #logoff:hover{
             border: 2px solid rgb(214, 181, 12);
     }
+    .item_menu{
+        color: #000;
+        padding: 7pt;
+        font-family: 'Bebas Neue', cursive;
+    }
+    .item_menu:hover{
+        text-decoration: none;
+        color: #fff;
+    }
 </style>
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg">
   <a class="navbar-brand" href="index.php">
       <img src="imagens/cifrao_origen.png" width="30" height="30" alt="Cifrão">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <span class=""><img src="imagens/listamenu.png" alt="lista" width="30"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="index.php">HOME <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link active" href="despesas.php">MOVIMENTAÇÃO</a>
-      <a class="nav-item nav-link active" href="projecao.php">PROJEÇÃO</a>
-      <a class="nav-item nav-link active" href="visaogeral.php">VISÃO GERAL</a>
-      <a class="nav-item nav-link active" href="lista.php">LISTA DE COMPRAS</a>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <a class="item_menu" href="index.php">HOME <span class="sr-only">(current)</span></a>
+      <a class="item_menu" href="despesas.php">MOVIMENTAÇÃO</a>
+      <a class="item_menu" href="projecao.php">PROJEÇÃO</a>
+      <a class="item_menu" href="visaogeral.php">VISÃO GERAL</a>
+      <a class="item_menu" href="lista.php">LISTA DE COMPRAS</a>
+      <li class="item_menu dropdown">
+        <a class="item_menu dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           LOGIN
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -43,12 +59,11 @@
           <a class="dropdown-item" href="login.php?logoff=1">LOGOFF</a>
         </div>
       </li>
+        <?php if(isset($_SESSION["v_login"])){ ?> 
+      <a class="item_menu">
+            ADM:&nbsp;<?php print_r($_SESSION["v_login"]); ?>
+      </a>
+        <?php } ?>
     </div>
-    <?php
-    if(isset($_SESSION["v_login"])){
-    ?> 
-    <span class="navbar-text loginn">
-            USUÁRIO:&nbsp;<?php print_r($_SESSION["v_login"]); }?>
-    </span>
   </div>
 </nav>

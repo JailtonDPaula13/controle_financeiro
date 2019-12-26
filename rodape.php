@@ -1,21 +1,32 @@
 <style>
-    .rodpe{
-        color:#fff;
+    footer{
+        background-color:#0A2D7F;
+        border-top: 4px solid #6F88C0;
+        width:100%;
+        height: 150px;
+        color: #fff;
+    }
+    .auto{
         text-align: center;
-        margin-top: 20px;
+        padding: 6pt;
+        font-family: 'Bebas Neue', cursive;
         
     }
-    .roddiv{
-        border-top: 3px solid #005389;
-        background-color:#00164a;
+    a{
+        color:#fff; 
     }
-    .gith:hover{
-        box-shadow: 0 0 2px #fff;
+    a:hover{
+        text-decoration: none;
+        color: #000;
+        
     }
+    .imagens:hover{
+        box-shadow: 0 0 4px #fff;
+        
+    }
+    .fim{margin-top:10pt;}
 </style>
-
-    <div clss="row justify-content-md-center">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 roddiv">
-            <p class="rodpe">&copy;JAILTON D'PAULA&nbsp;<a href="https://github.com/JailtonDPaula13/controle_financeiro" target="_blank"><img src="imagens/github-rec.jpg" alt="github" width="20px" class="rounded-circle gith"></a></p>
-        </div>
-    </div>
+<footer>
+    <p class="auto">&copy;2019 JAILTON D'PAULA&nbsp;</p>
+    <p class="auto fim"><a href="https://github.com/JailtonDPaula13" target="_blank">GITHUB&nbsp;<img src="imagens/github.png" alt="github" class="rounded-circle imagens" width="30px;"></a>&nbsp;<a href="https://www.linkedin.com/in/jailton-d-paula-188904a6/" target="_blank">LINKEDIN&nbsp;<img src="imagens/likendi.png" alt="github" width="30px;" class="imagens"></p>
+</footer>
