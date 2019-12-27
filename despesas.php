@@ -1,5 +1,5 @@
 <?php
-    ini_set('display_errors', FALSE);
+    //ini_set('display_errors', FALSE);
     require_once "conexao/conect.php";
     setlocale(LC_ALL, "PT-BR");
     session_start();
@@ -57,7 +57,7 @@ else
     
 //<!--===================consulta data e lista de despesas=======================================-->
                                         //====valor do tipo na pesquisa das despesas====//
-                                            if($_GET['npsqtipo'] == 0)
+                                            if(isset($_GET['npsqtipo']) == 0)
                                             {
                                                 $v_tipopqs = 'is not null';
                                             }
@@ -383,8 +383,10 @@ else
                 </div>
 <!--==============================modal final=========================================================-->
 <!--==========================================seleção de dados abas==============================================-->
+</div><!--fluid-->
+<!--continuar daki-->
 <section class="row">
-            <div class="col-12">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <h2 class="tituloDC">Lista de despesas e capital</h2>
             </div>
             <div class="pastaTotal col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -400,13 +402,14 @@ else
                     <div class="tab-content">
 <!--==================primeira aba==================================-->
                         <div class="tab-pane <?php print_r($v_abaD); ?> abaUmTotal" id="tab1">
-                                      <form action="despesas.php" method="get">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 linhaform" >
+                                    <form action="despesas.php" method="get" class="formsstyle">
                                             <div class="row justify-content-lg-center formpesquisa">
-                                              <div class="col-6 col-sm-6 col-md-6 col-lg-auto col-xl-auto">
+                                              <div class="col-6 col-sm-6 col-md-6 col-lg-5 col-xl-5">
                                                   <label class="pesquisaTabela">De:</label>
                                                   <input name="pesquisaD1" id="pesquisaD1" type = date class="inputPesquisa" required>
                                               </div>
-                                              <div class="col-6 col-sm-6 col-md-6 col-lg-auto col-xl-auto">
+                                              <div class="col-6 col-sm-6 col-md-6 col-lg-5 col-xl-5">
                                                   <label class="pesquisaTabela">A:&nbsp;</label>
                                                   <input name="pesquisaD2" id="pesquisaD2" type = date class="inputPesquisa">
                                               </div>
@@ -425,7 +428,9 @@ else
                                               </div>
                                             </div>
                                       </form>
+                            </div>
                            <!--========inicio primeira tabela==========-->
+                        <div class="tabelaStyle">
                            <table class="table">
                               <thead class="cabecalhoTabela">
                                 <tr>
@@ -437,7 +442,7 @@ else
                                   <th scope="col">Data</th>
                                 </tr>
                               </thead>
-                              <tbody>
+                              <tbody class="tbodyTable">
                                 <?php
                                   //$v_consulta configurado no incio -- whie permanece para visualização sem erro
                                   if(!$v_consulta)
@@ -484,22 +489,21 @@ else
                                      </div>
                                 <?php }} ?>
                                 </tr>
-                              </tbody>
+                              </tbody>   
                             <!--========total tabela de despesa===============-->
                               <tbody class="cabecalhoTabela">
-                               <tr>
-                                   
+                               <tr> 
                                   <th scope="col"><?php print_r('R$: '.$v_resltotal[0]); ?></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  
+                                  <th scope="col"></th>                 
                                 </tr>
                               </tbody>
                             </table>
                         </div>
+                    </div><!--fim primeira aba-->
 <!--==================primeira aba==================================-->
                         <div class="tab-pane <?php print_r($v_abaC); ?> abas" id="tab2">
             <!--===============inicio tabela dois===================-->
@@ -588,9 +592,7 @@ else
                 </div>
             </div>
 </section>
-</div>
 <?php
-    include_once("rodape.php");
     if(!$conexao_seis or !$conexao_um or !$conexao_tres or !$conexao_dois or !$conexao_quatro or !$conexao_cinco or !$conexao_sete)
     {
          echo("<script> alert('Erro ao conectar no banco!!!') </script>");

@@ -89,6 +89,7 @@
 /*=====================================pasta====================================================*/
 .abaUmTotal{
     background-color:#fff;
+    width:100%;
 }
 .tituloDC{
     margin-top: 20pt;
@@ -117,9 +118,9 @@
     color: #fff;
 }
 /*==================linha de pesquisa===============================================================*/
-.formpesquisa{
-    padding:10pt;
-}    
+.linhaform{
+    padding: 10pt;
+}   
 .pesquisaTabela{
         color: #000;
         margin-left: 10px;
@@ -148,33 +149,12 @@
 }
 /*==================linha de pesquisa===============================================================*/
 /*===================================tabelas========================================================*/
-th{
-    white-space: nowrap;
+.tabelaStyle{
+    width: 100%;
+    border: 2px solid #000;
 }
-td{
-    white-space: nowrap;
-}
-.table{
-    font-family: 'Ibarra Real Nova', serif;
-}
-.linhaTabela:hover{
-    background-color: #005389;
-    color: #fff;
-    text-shadow: 0 0 1px #000;
-}
-.cabecalhoTabela{
-    background-color:#002885;
-    color: #fff;
-}
-.opttipo{
-    border:none;
-}
-.descriDel{
-    color: #fff;
-    font-weight: 400;
-    font-family: 'Ibarra Real Nova', serif;
-}
-.excList:hover{
-    background-color: red; 
+.tbodyTable{
+    background-color: #E5E5E5;
+    width:100%;
 }
 
