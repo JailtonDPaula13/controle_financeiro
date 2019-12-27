@@ -293,7 +293,7 @@ else
     <title>Movimentações</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/despesas.css">
-    <link rel="shortcut icon" href="/imagens/cifrao_origen.png" >
+    <link rel="shortcut icon" href="imagens/cifrao_origen.png" >
 </head>
 <body>
     <?php
@@ -301,85 +301,93 @@ else
     ?>
 <div class="container-fluid">   
 <!--==============================modal=========================================================-->
-<div class="row">
-    <div class="col-6 col-sm-6 col-md-6 ">
-       <!-- Botão para acionar modal -->
-            <button class="botaoModal" data-toggle="modal" data-target="#modalExemplo">
-              Cadastro de despesa
-            </button>
-    </div>
-    <div class="col-6">
-            <button class="botaoModal" data-toggle="modal" data-target="#modalDois">
-              Cadastro de Crédito
-            </button>
-        
-        <!-- Modal -->
-            <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<section class="botoes">
+    <div class="row justify-content-center linhaBotoes">
+        <div class="col-5 col-sm-5 col-md-5 col-lg-4 col-xl-4  botoesLinha" id="modalDesp">
+                <center>
+                    <button class="botaoModal" data-toggle="modal" data-target="#modalUm">
+                      Cadastro de despesa
+                    </button>
+                </center>
+        </div>
+        <div class="col-5 col-sm-5 col-md-5 col-lg-4 col-xl-4  botoesLinha" id="modalCred">
+                <center>
+                    <button class="botaoModal" data-toggle="modal" data-target="#modalDois">
+                      Cadastro de capital
+                    </button>
+                </center>
+        </div>   
+    </div> 
+</section>
+            <!-- Modal um-->
+            <div class="modal fade" id="modalUm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <img src="imagens/cifrao_modal.png" alt="cifrão" width="30%">
+                    <h2 class="tituloModal">Despesas mensal</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <form action="despesas.php" method="post">
-                  <div class="modal-body">
-                    <label>R$:</label><br>
-                    <input name="real" id="real" type="number" step="0.01" placeholder="0,00" min="0" max="9999" required><br>
-                    <label>DESCRIÇÃO:</label><br>
-                    <input name="descricao" id="descricao" type="text" size="20" maxlength="50" placeholder="Bila" required><br>
-                    <label>LOCAL:</label><br>
-                    <input name="local" id="local" type="text" size="20" maxlength="50" placeholder="Budega do Madruga"><br>
-                    <label>DATA:</label><br>
-                    <input name="data" id="data" type="date" required><br>
-                    <label>TIPO:</label><br>
-                    <select name="ntipo">
+                  <div class="modal-body corpoDespesa">
+                    <label class="labelstyle">R$:</label><br>
+                    <input name="real" id="real" type="number" step="0.01" placeholder="0,00" min="0" max="9999" class="inputstyle" required><br>
+                    <label class="labelstyle">DESCRIÇÃO:</label><br>
+                    <input name="descricao" id="descricao" type="text" size="18" maxlength="50" placeholder="Pão" class="inputstyle" required><br>
+                    <label class="labelstyle">LOCAL:</label><br>
+                    <input name="local" id="local" type="text" size="18" maxlength="50" placeholder="Padaria" class="inputstyle" ><br>
+                    <label class="labelstyle">DATA:</label><br>
+                    <input name="data" id="data" type="date" class="inputstyle" required><br>
+                    <label class="labelstyle">TIPO:</label><br>
+                    <select name="ntipo" class="inputstyle">
                         <?php while($v_rtipo = mysqli_fetch_row($v_tipo)){ ?>
-                        <option value="<?php print_r($v_rtipo[0]); ?>"><?php print_r($v_rtipo[1]); ?></option>
+                            <option value="<?php print_r($v_rtipo[0]); ?>"><?php print_r($v_rtipo[1]); ?></option>
                         <?php } ?>
                     </select>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                    <button type="button"  data-dismiss="modal" class="botaoExit">Fechar</button>
+                    <button type="submit" class="botaoCad">Cadastrar</button>
                   </div>
                   </form>
                 </div>
               </div>
             </div>
-            <!--Modal 2-->
+            <!--Modal dois-->
             <div class="modal fade" id="modalDois" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <img src="imagens/cofre-porquinho.png" alt="cifrão" width="30%">
+                        <h2 class="tituloModal">Capital mensal</h2>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <form action="despesas.php" method="post">
-                      <div class="modal-body">
-                        <label>R$:</label><br>
-                        <input name="realD" id="realD" type="number" step="0.01" placeholder="0,00" min="0" max="9999" required><br>
-                        <label>DESCRIÇÃO:</label><br>
-                        <input name="descricaoC" id="descricaoC" type="text" size="20" maxlength="50" placeholder="Salário" required><br>
-                        <label>DATA:</label><br>
-                        <input name="dataC" id="dataC" type="date" required><br>
+                      <div class="modal-body corpoCapital">
+                        <label class="labelstyle">R$:</label><br>
+                        <input name="realD" id="realD" type="number" step="0.01" placeholder="0,00" min="0" max="9999" class="inputstyle" required><br>
+                        <label class="labelstyle">DESCRIÇÃO:</label><br>
+                        <input name="descricaoC" id="descricaoC" type="text" size="20" maxlength="50" placeholder="Salário" class="inputstyle" required><br>
+                        <label class="labelstyle">DATA:</label><br>
+                        <input name="dataC" id="dataC" type="date" class="inputstyle"required><br>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary" name="click4" value="1">Salvar mudanças</button>
+                        <button type="button" class="botaoExit" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="botaoCad" name="click4" value="1">Salvar mudanças</button>
                       </div>
                       </form>
                     </div>
                   </div>
                 </div>
-    </div>
+<!--==============================modal final=========================================================-->
 <!--==========================================seleção de dados abas==============================================-->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="pasta col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+<section class="row">
+            <div class="col-12">
+                <h2 class="tituloDC">Lista de despesas e capital</h2>
+            </div>
+            <div class="pastaTotal col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="tabbable" id="tabs-450075">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
@@ -390,40 +398,35 @@ else
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane <?php print_r($v_abaD); ?> abas" id="tab1">
-<!--=============================inicio tabelas========================================================================-->
-                 <!--===========consulta tabela despesas=========-->
-                           <table class="table">
-                                  <div class="row">
+<!--==================primeira aba==================================-->
+                        <div class="tab-pane <?php print_r($v_abaD); ?> abaUmTotal" id="tab1">
                                       <form action="despesas.php" method="get">
-                                      <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                          <label class="pesquis">De:</label>
-                                          <input name="pesquisaD1" id="pesquisaD1" type = date class="pesquisaDI" required>
-                                      </div>
-                                      <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                          <label class="pesquis">A:&nbsp;&nbsp;</label>
-                                          <input name="pesquisaD2" id="pesquisaD2" type = date class="pesquisaDI">
-                                      </div>
-                                      <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
-                                          <label class="pesquis">TIPO:&nbsp;&nbsp;</label>
-                                          <select name="npsqtipo" class="pesquisaDI">
-                                              <option value="0" class="opttipo">TODOS</option>
-                                                <?php while($v_psqtipo = mysqli_fetch_row($v_tipo2)){ ?>
-                                              <option value="<?php print_r($v_psqtipo[0]); ?>" class="opttipo"><?php print_r($v_psqtipo[1]); ?></option>
-                                                <?php } ?>
-                                          </select>
-                                      </div>
-                                      <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
-                                          <button type="submit" class="botaoPesquisaData"><img src="imagens/tempo-pq.png" alt="tempo" width="60%"></button>
-                                      </div>
+                                            <div class="row justify-content-lg-center formpesquisa">
+                                              <div class="col-6 col-sm-6 col-md-6 col-lg-auto col-xl-auto">
+                                                  <label class="pesquisaTabela">De:</label>
+                                                  <input name="pesquisaD1" id="pesquisaD1" type = date class="inputPesquisa" required>
+                                              </div>
+                                              <div class="col-6 col-sm-6 col-md-6 col-lg-auto col-xl-auto">
+                                                  <label class="pesquisaTabela">A:&nbsp;</label>
+                                                  <input name="pesquisaD2" id="pesquisaD2" type = date class="inputPesquisa">
+                                              </div>
+                                              <div class="col-7 col-sm-7 col-md-7 col-lg-auto col-xl-auto">
+                                                  <label class="pesquisaTabela">TIPO:</label>
+                                                  <select name="npsqtipo" class="inputPesquisa">
+                                                      <option value="0" class="opttipo">TODOS</option>
+                                                        <?php while($v_psqtipo = mysqli_fetch_row($v_tipo2)){ ?>
+                                                      <option value="<?php print_r($v_psqtipo[0]); ?>" class="opttipo"><?php print_r($v_psqtipo[1]); ?></option>
+                                                        <?php } ?>
+                                                  </select>
+                                              </div>
+                                              <div class="col-12 col-sm-12 col-md-12 col-lg-auto col-xl-auto">
+                                                  <button type="submit" class="botaoPesquisaData"><img src="imagens/tempo-pq.png" alt="tempo" width="30" ></button>
+                                                <a href="despesas.php" ><img src="imagens/atualizacao.png" alt="atulizar" width="34" class="resetPagina"></a>
+                                              </div>
+                                            </div>
                                       </form>
-                                      <form>
-                                      <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
-                                          <button type="submit" class="botaoPesquisaData"><img src="imagens/atualizacao.png" alt="atualiza" width="60%"></button>
-                                      </div>
-                                      </form>
-                                  </div>
-                               <!--========inicio primeira tabela==========-->
+                           <!--========inicio primeira tabela==========-->
+                           <table class="table">
                               <thead class="cabecalhoTabela">
                                 <tr>
                                   <th scope="col">Valor</th>
@@ -497,7 +500,7 @@ else
                               </tbody>
                             </table>
                         </div>
-                        <!--=====fim primeira tabela despesa=====-->
+<!--==================primeira aba==================================-->
                         <div class="tab-pane <?php print_r($v_abaC); ?> abas" id="tab2">
             <!--===============inicio tabela dois===================-->
                         <!--===========consulta tabela crédito=========-->
@@ -505,11 +508,11 @@ else
                                  <div class="row">
                                   <form action="despesas.php" method="get">
                                       <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                          <label class="pesquis">De:</label>
+                                          <label class="pesquisaTabela">De:</label>
                                           <input name="pesquisaD3" id="pesquisaD3" type = date class="pesquisaDI" required>
                                       </div>
                                       <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                          <label class="pesquis">A:&nbsp;&nbsp;</label>
+                                          <label class="pesquisaTabela">A:&nbsp;&nbsp;</label>
                                           <input name="pesquisaD4" id="pesquisaD4" type = date class="pesquisaDI">
                                       </div>
                                       <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
@@ -584,9 +587,7 @@ else
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+</section>
 </div>
 <?php
     include_once("rodape.php");

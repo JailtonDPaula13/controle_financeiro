@@ -3,6 +3,16 @@
 /*===fonts=====*/
     @import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
 /*font-family: 'Bebas Neue', cursive;*/
+    @import url('https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap');
+/*font-family: 'Kaushan Script', cursive;*/
+    @import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+/*font-family: 'Pacifico', cursive;*/
+    @import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
+/*font-family: 'Dancing Script', cursive;*/
+    @import url('https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap');
+/*font-family: 'Ibarra Real Nova', serif;*/
+    @import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
+/*font-family: 'Lobster', cursive;*/
 /*===fonts=====*/
     body{
         background-color: #0939A6;

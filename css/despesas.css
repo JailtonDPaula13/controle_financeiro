@@ -1,58 +1,104 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap');
-/*font-family: 'Kaushan Script', cursive;*/
-@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
-/*font-family: 'Pacifico', cursive;*/
-@import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
-/*font-family: 'Dancing Script', cursive;*/
-@import url('https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap');
-/*font-family: 'Ibarra Real Nova', serif;*/
 /*===============================botão modal====================================================*/
+.linhaBotoes{
+    padding: 0;
+    margin-top: 20pt;
+}
+.botoesLinha{
+    background-color: #062D86;
+    padding: 10pt;
+    margin:0
+}
+#modalDesp{
+    border: 2px solid #000;
+    border-right: none;
+    box-shadow: 4px 4px 0 #000;
+}
+#modalCred{
+    box-shadow: 4px 4px 0 #000;
+    border: 2px solid #000;
+    border-left: none;
+}
 .botaoModal{
-    margin-top: 20px;
-    border:none;
-    color:#fff;
-    text-shadow: 0 0 2px #000;
-    border: 2px solid #005389;
-    background-color: transparent;
-    transition: 0.5s;
-    font-family: 'Ibarra Real Nova', serif;
+    transition: 1s;
+    font-family: 'Bebas Neue', cursive;
 }
 .botaoModal:hover{
-    border: 2px solid #006eb6;
+    border: 2px solid #000;
     border-radius: 10px;
-    box-shadow:  0 0 4px rgba(214, 181, 12, 1);
-}
-/*====================================body======================================================*/
-body{
-    background-color: rgb(0, 22, 74);
+    box-shadow:  0 0 4px #fff;
 }
 /*===================================modal======================================================*/
-.modal-body{
-     background-color: #006eb6;
+.tituloModal{
+    font-family: 'Bebas Neue', cursive;
+}
+.corpoDespesa{
+     background-color: #062d86;
+     background-image: url('../imagens/cifrao_modal.png');
+     background-repeat: no-repeat;
+     background-size: 400px;
+     background-position: center;
+}
+.corpoCapital{
+     background-color: #062d86;
+     background-image: url('../imagens/cofre-porquinho.png');
+     background-repeat: no-repeat;
+     background-size: 400px;
+     background-position: center;    
 }
 .modal-content{
     border-radius: 10px;
-    border: 2px solid #292b33;
+    border: 2px solid #6F88C0;
 }
-label{
+.labelstyle{
+    font-family: 'Bebas Neue', cursive;
     color:#fff;
-    font-family: 'Ibarra Real Nova', serif;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
-input{
-    font-family: 'Ibarra Real Nova', serif;
-    margin-bottom: 5px;
-    border: 2px solid transparent;
+.inputstyle{
+    font-family: 'Bebas Neue', cursive;
+    margin-bottom: 5pt;
+    background-color: rgba(255, 255, 255, 0.8);
+    color:#000;
 }
-input:hover{
-    border: 2px solid rgb(214, 181, 12);
-    box-shadow: 0 0 2px #000;
+.inputstyle:hover{
+    background-color: #fff;
+}
+.botaoCad{
+    background-color:#062d86;
+    color: #fff;
+    border-radius: 7px;
+    font-family: 'Bebas Neue', cursive;
+    border:none;
+    padding: 5pt;
+}
+.botaoCad:hover{
+    background-color:#00B000;
+}
+.botaoExit{
+    background-color:#A2A0A0;
+    color: #000;
+    border-radius: 7px;
+    font-family: 'Bebas Neue', cursive;
+    border:none;
+    padding: 5pt;
+}
+.botaoExit:hover{
+    background-color:red;
 }
 /*=====================================pasta====================================================*/
-.pasta{
-    margin-top: 15px;
-    padding: 5px;
+.abaUmTotal{
+    background-color:#fff;
+}
+.tituloDC{
+    margin-top: 20pt;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    color:#fff;
+    text-shadow: 0 4px 0 #000;
+}
+.pastaTotal{
+    padding: 5pt;
 }
 .abas{
     background-color: #fff;
@@ -70,24 +116,43 @@ input:hover{
 .d_aba:hover{
     color: #fff;
 }
+/*==================linha de pesquisa===============================================================*/
+.formpesquisa{
+    padding:10pt;
+}    
+.pesquisaTabela{
+        color: #000;
+        margin-left: 10px;
+        font-family: 'Bebas Neue', cursive;
+    }
+.inputPesquisa{
+    border:none;
+    border-bottom: 2px solid #000;
+    transition: 0.5s;
+    margin-bottom: 10pt;
+}
+.botaoPesquisaData{
+    border: 2px solid #000;
+    border-radius: 7px 0 0px 7px;
+}
+.botaoPesquisaData:hover{
+    background-color:#0F9E00    ;
+}
+.resetPagina{
+    border: 2px solid #000;
+    border-radius: 0px 7px 7px 0px;
+    background-color: transparent;
+}
+.resetPagina:hover{
+    background-color:red;
+}
+/*==================linha de pesquisa===============================================================*/
 /*===================================tabelas========================================================*/
 th{
     white-space: nowrap;
 }
 td{
     white-space: nowrap;
-}
-.pesquis{
-    color: #000;
-    margin-left: 10px;
-}
-.pesquisaDI{
-    margin: 8px;
-    border-bottom: 2px solid #000;
-}
-.botaoPesquisaData{
-    margin: 10px;
-    border: 2px solid #005389;
 }
 .table{
     font-family: 'Ibarra Real Nova', serif;
