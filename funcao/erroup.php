@@ -25,7 +25,7 @@
         $agora      = getdate();                       //local da imagem
         $codname    = $agora['year']."_".$agora["yday"];
         $codname   .= $agora['hours'].$agora['minutes'].$agora['seconds'];
-        $v_namecomp = "imagens/upload/".$codname.strrchr( $imagem2,".");
+        $v_namecomp = "imagens/upload/upimg".$codname.strrchr( $imagem2,".");
         
         return $v_namecomp;
     }
