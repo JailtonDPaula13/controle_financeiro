@@ -90,6 +90,7 @@
 .abaUmTotal{
     background-color:#fff;
     width:100%;
+    margin-bottom: 20pt;
 }
 .tituloDC{
     margin-top: 20pt;
@@ -118,19 +119,24 @@
     color: #fff;
 }
 /*==================linha de pesquisa===============================================================*/
-.linhaform{
-    padding: 10pt;
-}   
+.butoesData{
+    margin-top:5pt;
+    margin-bottom:5pt;
+}
 .pesquisaTabela{
         color: #000;
         margin-left: 10px;
         font-family: 'Bebas Neue', cursive;
+        /*labels*/
     }
 .inputPesquisa{
     border:none;
     border-bottom: 2px solid #000;
     transition: 0.5s;
-    margin-bottom: 10pt;
+    margin: 0pt;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
+    /*input*/
 }
 .botaoPesquisaData{
     border: 2px solid #000;
@@ -151,10 +157,33 @@
 /*===================================tabelas========================================================*/
 .tabelaStyle{
     width: 100%;
-    border: 2px solid #000;
+    overflow: auto;
+    margin: 0;
+    font-family: 'Bebas Neue', cursive;
 }
-.tbodyTable{
-    background-color: #E5E5E5;
-    width:100%;
+.cabecalhoTabela{
+    background-color: #000;
+    color: #fff;
+    margin-top:0;
+}
+.divisao{
+    height: 100px;
+}
+.linhaTabela:hover{
+    background-color:#5A5C77;
+    color:#fff;
+    text-shadow: 0 2px 0 #000;
+}
+/*====================================modal delete==================================================*/
+.exclusaoModal{
+     background-color: #062d86;
+     background-image: url('../imagens/delete_modal.png');
+     background-repeat: no-repeat;
+     background-size: 50pt;
+     background-position: left;
+     color:#fff;
 }
 
+.excList:hover{
+    background-color: red;
+}

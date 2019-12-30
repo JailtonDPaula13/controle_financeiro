@@ -57,14 +57,15 @@ else
     
 //<!--===================consulta data e lista de despesas=======================================-->
                                         //====valor do tipo na pesquisa das despesas====//
-                                            if(isset($_GET['npsqtipo']) == 0)
+                                            if(isset($_GET['pesquisaD1'])){
+                                            if($_GET['npsqtipo'] == 0)
                                             {
                                                 $v_tipopqs = 'is not null';
                                             }
                                             else
                                             {
                                                 $v_tipopqs = "=".$_GET['npsqtipo'];
-                                            }
+                                            }}
                                         //======valores pesquisas===//
                                            $v_data_inicial = isset($_GET['pesquisaD1'])?$_GET['pesquisaD1']:null;
                                            $v_data_final   = isset($_GET['pesquisaD2'])?$_GET['pesquisaD2']:null;
@@ -166,7 +167,7 @@ else
                                                       where
                                                         login = '$v_logind'
                                                         and data between '$v_data_final' and '$v_data_inicial'
-                                                        and m.id_tipo $v_tipopqs;");
+                                                        and id_tipo $v_tipopqs;");
        $v_consulta     = mysqli_query($conexao_dois,"select
                                                     m.id_compra,
                                                     m.valor, descricao,
@@ -271,7 +272,7 @@ else
 
 //<!--===================fim consulta data e lista de crédito=======================================-->
 //=======================================aba crédito ou despesa ao carregar?===============================
-      if(isset($_POST['clickC']) or isset($_GET['click']) or isset($_GET['deleteIC']) or isset($_POST['click4']))
+      if(isset($_GET['clickC']) or isset($_GET['click']) or isset($_GET['deleteIC']) or isset($_POST['click4']))
          {
             $v_abaC = 'active';
             $v_abaD = null;
@@ -301,24 +302,22 @@ else
     ?>
 <div class="container-fluid">   
 <!--==============================modal=========================================================-->
-<section class="botoes">
-    <div class="row justify-content-center linhaBotoes">
-        <div class="col-5 col-sm-5 col-md-5 col-lg-4 col-xl-4  botoesLinha" id="modalDesp">
-                <center>
-                    <button class="botaoModal" data-toggle="modal" data-target="#modalUm">
-                      Cadastro de despesa
-                    </button>
-                </center>
-        </div>
-        <div class="col-5 col-sm-5 col-md-5 col-lg-4 col-xl-4  botoesLinha" id="modalCred">
-                <center>
-                    <button class="botaoModal" data-toggle="modal" data-target="#modalDois">
-                      Cadastro de capital
-                    </button>
-                </center>
-        </div>   
-    </div> 
-</section>
+<div class="row justify-content-center linhaBotoes">
+    <div class="col-5 col-sm-5 col-md-5 col-lg-4 col-xl-4  botoesLinha" id="modalDesp">
+            <center>
+                <button class="botaoModal" data-toggle="modal" data-target="#modalUm">
+                  Cadastro de despesa
+                </button>
+            </center>
+    </div>
+    <div class="col-5 col-sm-5 col-md-5 col-lg-4 col-xl-4  botoesLinha" id="modalCred">
+            <center>
+                <button class="botaoModal" data-toggle="modal" data-target="#modalDois">
+                  Cadastro de capital
+                </button>
+            </center>
+    </div>   
+</div> 
             <!-- Modal um-->
             <div class="modal fade" id="modalUm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -375,21 +374,22 @@ else
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="botaoExit" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="botaoCad" name="click4" value="1">Salvar mudanças</button>
+                        <button type="submit" class="botaoCad" name="click4" value="1">Cadastrar</button>
                       </div>
                       </form>
                     </div>
                   </div>
                 </div>
 <!--==============================modal final=========================================================-->
-<!--==========================================seleção de dados abas==============================================-->
 </div><!--fluid-->
-<!--continuar daki-->
-<section class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <h2 class="tituloDC">Lista de despesas e capital</h2>
-            </div>
-            <div class="pastaTotal col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+<section class="container-fluid">
+    <section class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+           <h2 class="tituloDC">Lista de despesas e capital</h2>
+        </div>
+    </section>
+</section><!--container dois-->
+<!--==========================================seleção de dados abas==============================================-->
                 <div class="tabbable" id="tabs-450075">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
@@ -398,22 +398,21 @@ else
                         <li class="nav-item">
                             <a class="nav-link d_aba <?php print_r($v_abaC); ?>" href="#tab2" data-toggle="tab">Crédito</a>
                         </li>
-                    </ul>
-                    <div class="tab-content">
+                    </ul>          
+                    <div class="tab-content"><!--tabelas-->
 <!--==================primeira aba==================================-->
                         <div class="tab-pane <?php print_r($v_abaD); ?> abaUmTotal" id="tab1">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 linhaform" >
-                                    <form action="despesas.php" method="get" class="formsstyle">
-                                            <div class="row justify-content-lg-center formpesquisa">
-                                              <div class="col-6 col-sm-6 col-md-6 col-lg-5 col-xl-5">
+                                    <section class="container-fluid">
+                                    <form action="despesas.php" method="get" class="formsstyle row justify-content-lg-center">
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-auto col-xl-auto">
                                                   <label class="pesquisaTabela">De:</label>
                                                   <input name="pesquisaD1" id="pesquisaD1" type = date class="inputPesquisa" required>
-                                              </div>
-                                              <div class="col-6 col-sm-6 col-md-6 col-lg-5 col-xl-5">
+                                                </div>
+                                                <div class="col-6 col-sm-6 col-md-6 col-lg-auto col-xl-auto">
                                                   <label class="pesquisaTabela">A:&nbsp;</label>
                                                   <input name="pesquisaD2" id="pesquisaD2" type = date class="inputPesquisa">
-                                              </div>
-                                              <div class="col-7 col-sm-7 col-md-7 col-lg-auto col-xl-auto">
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12 col-lg-auto col-xl-auto">
                                                   <label class="pesquisaTabela">TIPO:</label>
                                                   <select name="npsqtipo" class="inputPesquisa">
                                                       <option value="0" class="opttipo">TODOS</option>
@@ -421,14 +420,13 @@ else
                                                       <option value="<?php print_r($v_psqtipo[0]); ?>" class="opttipo"><?php print_r($v_psqtipo[1]); ?></option>
                                                         <?php } ?>
                                                   </select>
-                                              </div>
-                                              <div class="col-12 col-sm-12 col-md-12 col-lg-auto col-xl-auto">
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12 col-lg-auto col-xl-auto butoesData">
                                                   <button type="submit" class="botaoPesquisaData"><img src="imagens/tempo-pq.png" alt="tempo" width="30" ></button>
                                                 <a href="despesas.php" ><img src="imagens/atualizacao.png" alt="atulizar" width="34" class="resetPagina"></a>
-                                              </div>
-                                            </div>
+                                               </div>
                                       </form>
-                            </div>
+                                    </section>
                            <!--========inicio primeira tabela==========-->
                         <div class="tabelaStyle">
                            <table class="table">
@@ -442,17 +440,18 @@ else
                                   <th scope="col">Data</th>
                                 </tr>
                               </thead>
-                              <tbody class="tbodyTable">
+                              <tbody>
                                 <?php
                                   //$v_consulta configurado no incio -- whie permanece para visualização sem erro
                                   if(!$v_consulta)
                                   {
-                                      echo("Erro de conexão D:");
+                                      echo("<tr>Erro de conexão D:</tr>");
                                   }
+                                 
                                   else
                                   {
                                       while($v_resultado = mysqli_fetch_row($v_consulta))
-                                      {                                  
+                                      {   
                                  ?>
                                 <tr class="linhaTabela">
                                   <th scope="row"><?php print_r("R$: ".$v_resultado[1]);?></th>
@@ -471,23 +470,23 @@ else
                                                   <span aria-hidden="true">&times;</span>
                                                 </button>
                                               </div>
-                                              <div class="modal-body">
-                                                  <center><h6 class="descriDel">!!!<?php print_r(" $v_resultado[2] ");?>!!!</h6></center>
+                                              <div class="modal-body exclusaoModal">
+                                                  <center><h6 class="descriDel">Descrição:&nbsp;<?php print_r(" $v_resultado[2] ");?>!!!</h6></center>
                                               </div>
                                               <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                <button type="button" class="botaoExit" data-dismiss="modal">Não</button>
                                                 <a
                                                    href="despesas.php?deleteId=<?php print_r($v_resultado[0]);
                                                      if($v_data_inicial){echo("&pesquisaD1=".$_GET['pesquisaD1']."&pesquisaD2=".$_GET['pesquisaD2']."&npsqtipo=".$_GET['npsqtipo']);}
                                                     ?>"
                                                 >
-                                                    <button type="submit" class="btn btn-primary">Sim</button>
+                                                    <button type="submit" class="botaoCad">Sim</button>
                                                 </a>
                                               </div>
                                             </div>
                                           </div>
                                      </div>
-                                <?php }} ?>
+                                <?php } } ?>
                                 </tr>
                               </tbody>   
                             <!--========total tabela de despesa===============-->
@@ -505,31 +504,36 @@ else
                         </div>
                     </div><!--fim primeira aba-->
 <!--==================primeira aba==================================-->
+<!--==================segunda aba==================================-->               
                         <div class="tab-pane <?php print_r($v_abaC); ?> abas" id="tab2">
-            <!--===============inicio tabela dois===================-->
-                        <!--===========consulta tabela crédito=========-->
-                                 <table class="table">
-                                 <div class="row">
-                                  <form action="despesas.php" method="get">
-                                      <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                          <label class="pesquisaTabela">De:</label>
-                                          <input name="pesquisaD3" id="pesquisaD3" type = date class="pesquisaDI" required>
-                                      </div>
-                                      <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                          <label class="pesquisaTabela">A:&nbsp;&nbsp;</label>
-                                          <input name="pesquisaD4" id="pesquisaD4" type = date class="pesquisaDI">
-                                      </div>
-                                      <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
-                                          <button name="click" type="submit" class="botaoPesquisaData" value="1"><img src="imagens/tempo-pq.png" alt="tempo" width="60%"></button>
-                                      </div>
+                            <section class="container-fluid">
+                                <form action="despesas.php" method="get" class="formsstyle row justify-content-lg-center">
+                                            <div class="col-6 col-sm-6 col-md-6 col-lg-auto col-xl-auto">
+                                              <label class="pesquisaTabela">De:</label>
+                                              <input name="pesquisaD3" id="pesquisaD3" type = date class="inputPesquisa" required>
+                                            </div>
+                                            <div class="col-6 col-sm-6 col-md-6 col-lg-auto col-xl-auto">
+                                              <label class="pesquisaTabela">A:&nbsp;</label>
+                                              <input name="pesquisaD4" id="pesquisaD4" type = date class="inputPesquisa">
+                                            </div>
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-auto col-xl-auto">
+                                              <label class="pesquisaTabela">TIPO:</label>
+                                              <select name="npsqtipo" class="inputPesquisa">
+                                                  <option value="0" class="opttipo">TODOS</option>
+                                                    <?php while($v_psqtipo = mysqli_fetch_row($v_tipo2)){ ?>
+                                                  <option value="<?php print_r($v_psqtipo[0]); ?>" class="opttipo"><?php print_r($v_psqtipo[1]); ?></option>
+                                                    <?php } ?>
+                                              </select>
+                                            </div>
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-auto col-xl-auto butoesData">
+                                              <button type="submit" class="botaoPesquisaData" name="click"><img src="imagens/tempo-pq.png" alt="tempo" width="30" ></button>
+                                            <a href="despesas.php?clickC=1" ><img src="imagens/atualizacao.png" alt="atulizar" width="34" class="resetPagina"></a>
+                                           </div>
                                   </form>
-                                  <form method="post">
-                                      <div class="col-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
-                                          <button name="clickC" type="submit" class="botaoPesquisaData" value="1"><img src="imagens/atualizacao.png" alt="tempo" width="60%"></button>
-                                      </div>
-                                  </form>
-                                  </div>
-                       <!--=============tabela dois=================-->
+                                </section>
+                                <!--===============inicio tabela dois===================-->
+                        <div class="tabelaStyle">
+                            <table class="table">
                               <thead class="cabecalhoTabela">
                                 <tr>
                                   <th scope="col">Valor</th>
@@ -561,18 +565,19 @@ else
                                                   <span aria-hidden="true">&times;</span>
                                                 </button>
                                               </div>
-                                              <div class="modal-body">
-                                                  <center><h6 class="descriDel">!!!<?php print_r(" $v_resultado_C[2] ");?>!!!</h6></center>
+                                              <div class="modal-body exclusaoModal">
+                                                  <center><h6 class="descriDel">Descrição:&nbsp;<?php print_r(" $v_resultado_C[2] ");?>!!!</h6></center>
                                               </div>
                                               <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                <button type="button" class="botaoExit" data-dismiss="modal">Não</button>
                                              <a href="despesas.php?deleteIC=<?php print_r($v_resultado_C[0]); if($v_data_inicial_C){echo("&pesquisaD3=".$_GET['pesquisaD3']."&pesquisaD4=".$_GET['pesquisaD4']."&click=1");} ?>">
-                                                 <button type="submit" class="btn btn-primary">Sim</button>
+                                                 <button type="submit" class="botaoCad">Sim</button>
                                              </a>
                                               </div>
                                             </div>
                                           </div>
                                      </div>
+                                    <!--fim modal-->
                                     <?php }} ?>
                                 </tr>
                               </tbody>
@@ -586,12 +591,11 @@ else
                                 </tr>
                               </tbody>
                             </table>
+                    </div>
                             <!--fim tabela-->
                         </div>
-                    </div>
+                    </div><!-- fim das tabelas -->
                 </div>
-            </div>
-</section>
 <?php
     if(!$conexao_seis or !$conexao_um or !$conexao_tres or !$conexao_dois or !$conexao_quatro or !$conexao_cinco or !$conexao_sete)
     {

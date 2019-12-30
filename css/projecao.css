@@ -1,0 +1,17 @@
+@charset "uft-8";
+
+.modalCadFut{
+     background-color: #062d86;
+     background-image: url('../imagens/saldomodalfut.png');
+     background-repeat: no-repeat;
+     background-size: 400px;
+     background-position: center;
+}
+.modalSaldoCadFut
+{
+     background-color: #062d86;
+     background-image: url('../imagens/dinheirosaldofut.png');
+     background-repeat: no-repeat;
+     background-size: 400px;
+     background-position: center;
+}  

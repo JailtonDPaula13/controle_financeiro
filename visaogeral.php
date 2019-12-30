@@ -2,6 +2,7 @@
     session_start();
     ini_set('display_errors', FALSE);
     require_once ('conexao/conect.php');
+    require_once ('funcao/mes.php');
     date_default_timezone_set('America/Fortaleza');
 //=================================verificar acesso========================================//
 if( !isset($_SESSION["v_login"]))
@@ -46,119 +47,55 @@ $v_datap = getdate();
         <?php
             require_once('navbar.php');
         ?>
-        <section class="container-fluid">
+<section class="container-fluid">
+<!--=======================titulo===========================================-->
+           <div class="row justify-content-center">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 msg">    
+                <h2 id='tituloVisao'>
+                    Projeção mensais de saldo e projeção futuras
+                </h2>
+                </div>
+          </div>
+<div class="row justify-content-center linhaVisao">
+<!--===================projeção de gasto no mês===========================-->
+    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 quadrovisao">
+        <h4 class="tituloquadro">Visão do saldo de <?php echo mesAno(date(m)); ?></h4>
+        <p>Para que não seja necessário o uso do cartão de crédito gerando assim despesas para próximos meses o valor permitido de gasto diário hoje é:</p>
+        <h3>R$:&nbsp;<?php print_r(str_replace('.',',',$v_conct1[0])); ?></h3>
+        <p>Saldo restante para resto desse mês é:</p>
+        <h3>R$:&nbsp;<?php print_r(str_replace('.',',',$v_conct2[0])); ?></h3>
+    </div>
+<!--===================projeção de futuros===========================-->
+    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 quadrovisaodois">
+        <h4 class="tituloquadro">Visão do saldo de <?php echo mesAno(date(m)+1); ?></h4>
+        <p>Projeção de gasto diário e uniforme para o mês <?php echo mesAno(date(m)+1); ?> para que não torne necessário o uso do cartão de crédito é:</p>
+        <h3>R$:&nbsp;<?php print_r(str_replace('.',',',$v_conct4[0])); ?></h3>
+        <p>Projeção de saldo pro mês <?php echo mesAno(date(m)+1); ?> é de:</p>
+        <h3>R$:&nbsp;<?php print_r($v_conct3[0]); ?></h3>
+    </div>
+<!--===================projeção de futuros 2 meses===========================-->
+    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 quadrovisao">
+        <h4 class="tituloquadro">Visão do saldo de <?php echo mesAno(date(m)+2); ?></h4>
+        <p>Projeção de gasto diário e uniforme para o mês <?php echo mesAno(date(m)+2); ?> para que não torne necessário o uso do cartão de crédito é:</p>
+        <h3>R$:&nbsp;<?php print_r(str_replace('.',',',$v_conct6[0])); ?></h3>
+        <p>Projeção de saldo pro mês <?php echo mesAno(date(m)+2); ?> é de:</p>
+        <h3>R$:&nbsp;<?php print_r(str_replace('.',',',$v_conct5[0])); ?></h3>
+    </div>
+</div>
 <!--=======================meng===========================================-->
            <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 msg">    
-                <h5 id='principio'>
+                <h4 id='principio'>
                     “Quando saímos do foco, esquecemos que são nossos sonhos que estão em jogo, deixamos de lado muitas coisas importantes, e acabamos colocando em risco tudo que conquistamos.”
-                </h5>
+                </h4>
                 </div>
             </div>
-<!--===================projeção de gasto no mês===========================-->
-            <div id="accordion">
-              <div class="card">
-                <div class="card-header" id="headingOne">
-                  <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Projeção de saldo do mês:
-                    </button>
-                  </h5>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                  <div class="card-body">
-                   <h5>
-                       Para gasto unifome entre os dias do mês vigente e não gerar despesas para o mês posterior o valor máximo aceito de despesa hoje é:
-                   </h5>
-                   <p class="valor">
-                       R$:&nbsp;<?php print_r($v_conct1[0]); ?>
-                   </p>
-                  </div>
-                  <div class="card-body">
-                   <h5>
-                       Saldo restante para o mês vijente é:
-                   </h5>
-                   <p class="valor">
-                       R$:&nbsp;<?php print_r($v_conct2[0]); ?>
-                   </p>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-<!--===================projeção de futuros===========================-->
-            <div id="accordion">
-              <div class="card">
-                <div class="card-header" id="headingOne">
-                  <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-                      Projeção de saldo futuro:
-                    </button>
-                  </h5>
-                </div>
-
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                  <div class="card-body">
-                   <h5>
-                       Para gasto unifome entre os dias do mês posterior e não gerar despesas para o mês seguinte o valor máximo aceito de despesa diária é:
-                   </h5>
-                   <p class="valor">
-                       R$:&nbsp;<?php print_r($v_conct4[0]); ?>
-                   </p>
-                  </div>
-                  <div class="card-body">
-                   <h5>
-                       Projeção de saldo restante para o mês posterior é:
-                   </h5>
-                   <p class="valor">
-                       R$:&nbsp;<?php print_r($v_conct3[0]); ?>
-                   </p>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-<!--===================projeção de futuros 2 meses===========================-->
-            <div id="accordion">
-              <div class="card">
-                <div class="card-header" id="headingOne">
-                  <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-                      Projeção de saldo futuro dois meses a frente:
-                    </button>
-                  </h5>
-                </div>
-
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                  <div class="card-body">
-                   <h5>
-                       Para gasto unifome entre os dias dois meses posterior e não gerar despesas para o mês seguinte o valor máximo aceito de despesa diária é:
-                   </h5>
-                   <p class="valor">
-                       R$:&nbsp;<?php print_r($v_conct6[0]); ?>
-                   </p>
-                  </div>
-                  <div class="card-body">
-                   <h5>
-                       Projeção de saldo restante para dois meses posterior é:
-                   </h5>
-                   <p class="valor">
-                       R$:&nbsp;<?php print_r($v_conct5[0]); ?>
-                   </p>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-        </section>
-        
+</section>        
 <!--SCRIPTS===============================================================-->   
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="js/bootstrap.min.js"></script>
         <!--<script src="js/jquery-3.3.1.slim.min.js"></script>-->
 <?php
-    include_once("rodape.php");
             if(!$conexao_seis or !$conexao_um or !$conexao_tres or !$conexao_dois or !$conexao_quatro or !$conexao_cinco )
     {
          echo("<script> alert('Erro ao conectar no banco!!!') </script>");
