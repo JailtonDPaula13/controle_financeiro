@@ -454,7 +454,7 @@ else
                                       {   
                                  ?>
                                 <tr class="linhaTabela">
-                                  <th scope="row"><?php print_r("R$: ".$v_resultado[1]);?></th>
+                                  <th scope="row"><?php print_r("R$: ".str_replace(".",",",$v_resultado[1]));?></th>
                                   <td><?php print_r($v_resultado[2]);?></td>
                                   <td><?php print_r($v_resultado[3]);?></td>
                                   <th scope="row"><a data-toggle="modal" data-target="#modalExDesp<?php print_r($v_resultado[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px;" class="excList rounded-circle"></a></th>
@@ -551,7 +551,7 @@ else
                                       {                                  
                                  ?>
                                 <tr class="linhaTabela">
-                                  <th scope="row"><?php print_r('R$: '.$v_resultado_C[1]);?></th>
+                                  <th scope="row"><?php print_r('R$: '.str_replace(".",",",$v_resultado_C[1]));?></th>
                                   <td ><?php print_r($v_resultado_C[2]);?></td>
                                     <th scope="row"><a data-toggle="modal" data-target="#modalExCred<?php print_r($v_resultado_C[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px;" class="excList rounded-circle"></a></th>
                                   <td ><?php print_r($v_resultado_C[3]);?></td>

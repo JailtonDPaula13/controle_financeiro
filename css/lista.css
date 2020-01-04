@@ -1,86 +1,169 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap');
-/*font-family: 'Kaushan Script', cursive;*/
-@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
-/*font-family: 'Pacifico', cursive;*/
-@import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
-/*font-family: 'Dancing Script', cursive;*/
-@import url('https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap');
-/*font-family: 'Ibarra Real Nova', serif;*/
-body{
-        background-color: rgb(0, 22, 74);
-}
 /*===============================botão modal====================================================*/
+.linhaBotoes{
+    padding: 0;
+    margin-top: 20pt;
+}
+.botoesLinha{
+    background-color: #062D86;
+    padding: 10pt;
+    margin-bottom:20PT;
+    box-shadow: 4px 4px 0 #000;
+    border: 2px solid #000;
+    
+}
 .botaoModal{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    color:#fff;
-    text-shadow: 0 0 2px #000;
-    border: 2px solid #005389;
-    background-color: transparent;
-    transition: 0.5s;
-    font-family: 'Ibarra Real Nova', serif;
+    transition: 1s;
+    font-family: 'Bebas Neue', cursive;
 }
 .botaoModal:hover{
-    border: 2px solid #006eb6;
+    border: 2px solid #000;
     border-radius: 10px;
-    box-shadow:  0 0 4px rgba(214, 181, 12, 1);
+    box-shadow:  0 0 4px #fff;
 }
 /*===================================modal======================================================*/
-.modal-body{
-     background-color: #006eb6;
+.tituloModal{
+    font-family: 'Bebas Neue', cursive;
+}
+.corpoLista{
+     background-color: #062d86;
+     background-image: url('../imagens/compras2.0.png');
+     background-repeat: no-repeat;
+     background-size: 300pt;
+     background-position: center;
 }
 .modal-content{
     border-radius: 10px;
-    border: 2px solid #292b33;
+    border: 2px solid #6F88C0;
 }
-label{
+.labelstyle{
+    font-family: 'Bebas Neue', cursive;
     color:#fff;
-    font-family: 'Ibarra Real Nova', serif;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
-input{
-    font-family: 'Ibarra Real Nova', serif;
-    margin-bottom: 5px;
-    border: 2px solid transparent;
+.inputstyle{
+    font-family: 'Bebas Neue', cursive;
+    margin-bottom: 5pt;
+    background-color: rgba(255, 255, 255, 0.8);
+    color:#000;
 }
-input:hover{
-    border: 2px solid rgb(214, 181, 12);
-    box-shadow: 0 0 2px #000;
+.inputstyle:hover{
+    background-color: #fff;
+}
+.botaoCad{
+    background-color:#062d86;
+    color: #fff;
+    border-radius: 7px;
+    font-family: 'Bebas Neue', cursive;
+    border:none;
+    padding: 5pt;
+}
+.botaoCad:hover{
+    background-color:#00B000;
+}
+.botaoExit{
+    background-color:#A2A0A0;
+    color: #000;
+    border-radius: 7px;
+    font-family: 'Bebas Neue', cursive;
+    border:none;
+    padding: 5pt;
+}
+.botaoExit:hover{
+    background-color:red;
+}
+/*=====================titulo======================================================================*/
+.tituloCompra{
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
 }
 /*=====================cards======================================================================*/
-.idcard{
-    background-color: #fff;
-    padding:5px;
+.linhaStyleList{
+    margin-top: 20pt;
+    font-family: 'Bebas Neue', cursive;
 }
-.card0{
-    border: 1px solid #000;
-    box-shadow: 0 0 2px #000;
-    margin-top:10px;
-    margin-bottom:10px;
+.imgStyle{
+    border: 3px solid #c2c2c2;
+    box-shadow:2px 2px 0 #000;
 }
-.listap{
-    line-height:8px;
+.titulo_intens{
+    border-bottom: 2px solid #000;
 }
-.card-title{
-    height: 50px;
+.botoesLista{
+    margin-left: 5pt;
+    margin-bottom   : 5pt;
 }
-.deleteb{
-    border: 1px solid #000;
-    border-radius: 7px;
-    transition: 0.5s;
+.botaoUm:hover{
+    background: red;
+    border-radius: 3px;
 }
-.deleteb:hover{
-   box-shadow: 0 0 5px rgb(214, 181, 12);
-   background-color: red;
+.botaoDois:hover{
+    background: green;
+    border-radius: 3px;
 }
-.fimupdate:hover{
-   background-color: #13CC00;
+.linharow{
+    padding: 2pt;
+}
+.deleteListComp{
+    background-color: #062d86;
+     background-image: url('../imagens/delete_modal.png');
+     background-repeat: no-repeat;
+     background-size: 100pt;
+     background-position: left;
+     font-family: 'Bebas Neue', cursive;
+}
+/*===========================colaps===================================================================*/
+.accordion{
+    border: 3px solid #000;
+    border-radius: 6px;
+    box-shadow: 4px 4px 0 #000;
+}
+.butaoAlta{
+    border: 4px solid #fff;
+    box-shadow: 0 0 4px #000;
+    background-color: #0939a6;
+    font-family: 'Bebas Neue', cursive;
+    border-radius: 3px;
+    color: #fff;
+    transition: 1s;
+    width: 100pt;
+}
+.butaoAlta:hover{
+    background-color: black;
+    color: red;
+}
+.butaoMedia{
+    border: 4px solid #fff;
+    box-shadow: 0 0 4px #000;
+    background-color: #0939a6;
+    font-family: 'Bebas Neue', cursive;
+    border-radius: 3px;
+    color: #fff;    
+    transition: 1s;
+    width: 100pt;
+}
+.butaoMedia:hover{
+    background-color: #000;
+    color:yellow;
+}
+.butaoBaixa{
+    border: 4px solid #fff;
+    box-shadow: 0 0 4px #000;
+    background-color: #0939a6;
+    font-family: 'Bebas Neue', cursive;
+    border-radius: 3px;
+    color: #fff;    
+    transition: 1s;
+    width: 100pt;
+}
+.butaoBaixa:hover{
+    background-color: #000;
+    color:green;
 }
 /*===========================modal sim não============================================================*/
 .objList{
     color:#fff;
     text-align: center;
-    font-family: 'Ibarra Real Nova', serif;
-    text-shadow: 0 0 2px #000;
 }

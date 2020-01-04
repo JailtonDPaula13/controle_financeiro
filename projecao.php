@@ -314,7 +314,7 @@ else{
                                   {                                  
                              ?>
                             <tr class="linhaTabela">
-                              <th scope="row"><?php print_r('R$: '.$consulta_despesas[1]);?></th>
+                              <th scope="row"><?php print_r('R$: '.str_replace(".",",",$consulta_despesas[1]));?></th>
                               <td><?php print_r($consulta_despesas[2]);?></td>
                               <td><?php print_r($consulta_despesas[4]);?></td>
                                 <td>
@@ -402,7 +402,7 @@ else{
                                   {                                  
                              ?>
                             <tr class="linhaTabela">
-                              <th scope="row"><?php print_r('R$: '.$consulta_saldo[1]);?></th>
+                              <th scope="row"><?php print_r('R$: '.str_replace(".",",",$consulta_saldo[1]));?></th>
                               <td><?php print_r($consulta_saldo[2]);?></td>
                               <td>
                                   <a data-toggle="modal" data-target="#saldoFutura<?php print_r($consulta_saldo[0]);?>">
