@@ -295,6 +295,9 @@ else
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/despesas.css">
     <link rel="shortcut icon" href="imagens/cifrao_origen.png" >
+    <script>
+        
+    </script>
 </head>
 <body>
     <?php
@@ -457,7 +460,7 @@ else
                                   <th scope="row"><?php print_r("R$: ".str_replace(".",",",$v_resultado[1]));?></th>
                                   <td><?php print_r($v_resultado[2]);?></td>
                                   <td><?php print_r($v_resultado[3]);?></td>
-                                  <th scope="row"><a data-toggle="modal" data-target="#modalExDesp<?php print_r($v_resultado[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px;" class="excList rounded-circle"></a></th>
+                                  <th scope="row"><a data-toggle="modal" data-target="#modalExDesp<?php print_r($v_resultado[0]);?>"><img src="imagens/lixeira-red.png" alt="lixeira" width="30px;" class="excList rounded-circle"() onmousemove="deleteImg()"></a></th>
                                   <td><?php print_r($v_resultado[5]);?></td>
                                   <td><?php print_r($v_resultado[4]);?></td>
                                   <!--Modal 3 exclusão despesas-->
@@ -604,6 +607,7 @@ else
         
 ?>
 <!--SCRIPTS===============================================================-->
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
 <!--<script src="js/jquery-3.3.1.slim.min.js"></script>-->
