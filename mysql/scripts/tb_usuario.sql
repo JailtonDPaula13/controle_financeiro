@@ -1,1 +1,0 @@
-insert into tb_usuario values(null,'JAILTON','123456','D_PAULA');

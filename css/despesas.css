@@ -1,189 +1,121 @@
-@charset "UTF-8";
-/*===============================botão modal====================================================*/
-.linhaBotoes{
-    padding: 0;
-    margin-top: 20pt;
+@font-face{
+    src: url('../fonts/CrimsonText-BoldItalic.ttf');
+    font-family: padrao;
 }
-.botoesLinha{
-    background-color: #062D86;
-    padding: 10pt;
-    margin:0
+/*=========================corpo=======================================*/
+body{
+    background:  url('../imagens/background/fundo_dois.jpg');
+    font-family: padrao;
+    color:       #fff;
 }
-#modalDesp{
-    border: 2px solid #000;
-    border-right: none;
-    box-shadow: 4px 4px 0 #000;
+a:hover{
+    text-decoration: none;
 }
-#modalCred{
-    box-shadow: 4px 4px 0 #000;
-    border: 2px solid #000;
-    border-left: none;
+/*=========================cabeçalho===================================*/
+.cl_header{
+    background: #01365e;
+/*    */
+    width:      100%;
+    padding:    5pt;
 }
-.botaoModal{
-    transition: 1s;
-    font-family: 'Bebas Neue', cursive;
+/*=========================navbar======================================*/
+.cl_navegacao{
+    background: #0185b6;
+    text-shadow: 1px 1px 1px #000;
 }
-.botaoModal:hover{
-    border: 2px solid #000;
-    border-radius: 10px;
-    box-shadow:  0 0 4px #fff;
+.list_menu{
+    list-style: none;
 }
-/*===================================modal======================================================*/
-.tituloModal{
-    font-family: 'Bebas Neue', cursive;
-}
-.corpoDespesa{
-     background-color: #062d86;
-     background-image: url('../imagens/cifrao_modal.png');
-     background-repeat: no-repeat;
-     background-size: 400px;
-     background-position: center;
-}
-.corpoCapital{
-     background-color: #062d86;
-     background-image: url('../imagens/cofre-porquinho.png');
-     background-repeat: no-repeat;
-     background-size: 400px;
-     background-position: center;    
-}
-.modal-content{
-    border-radius: 10px;
-    border: 2px solid #6F88C0;
-}
-.labelstyle{
-    font-family: 'Bebas Neue', cursive;
-    color:#fff;
-    margin-bottom: 0;
-}
-.inputstyle{
-    font-family: 'Bebas Neue', cursive;
-    margin-bottom: 5pt;
-    background-color: rgba(255, 255, 255, 0.8);
-    color:#000;
-}
-.inputstyle:hover{
-    background-color: #fff;
-}
-.botaoCad{
-    background-color:#062d86;
-    color: #fff;
-    border-radius: 7px;
-    font-family: 'Bebas Neue', cursive;
-    border:none;
-    padding: 5pt;
-}
-.botaoCad:hover{
-    background-color:#00B000;
-}
-.botaoExit{
-    background-color:#A2A0A0;
-    color: #000;
-    border-radius: 7px;
-    font-family: 'Bebas Neue', cursive;
-    border:none;
-    padding: 5pt;
-}
-.botaoExit:hover{
-    background-color:red;
-}
-/*=====================================pasta====================================================*/
-.abaUmTotal{
-    background-color:#fff;
-    width:100%;
-    margin-bottom: 20pt;
-}
-.tituloDC{
-    margin-top: 20pt;
-    text-align: center;
-    font-family: 'Lobster', cursive;
-    color:#fff;
-    text-shadow: 0 4px 0 #000;
-}
-.pastaTotal{
-    padding: 5pt;
-}
-.abas{
-    background-color: #fff;
-    box-shadow: 2px 2px 5px black;
-    width: 100%;
-    overflow-x:auto; 
+.list_menu_li{
+    display: inline-block;
+    color:   #fff;
 }
 
-.d_aba{
+/*=========================navbar======================================*/
+table{
+    border: 2px solid #fff;
+    text-align: center;
+}
+/*=========================navbar======================================*/
+.button_add{
+    border:        none;
+    border-radius: 3pt;
+    box-shadow:    2px 2px 2px #000;
+    margin:        8px;
+}
+/*=========================modal=======================================*/
+#titolomodal{
+    color: #000;
+}
+.lb_cad_des{
+    color: #000;
+    width: 49%;
+    margin:0;
+}
+.cl_select{
+    width: 99%;
+}
+.cl_input{
+    border-radius: 3pt;
+    height: 30px;
+    border: 1px solid #000;
+}
+#alerta_add{
+    color:      #000;
+    text-align: center;
+    margin-top: 10pt;
+    font-size:  1.2em;
+    color:      green;
+    display:    none;
+}
+/*=========================modal=======================================*/
+.cl_line{
+    color: #000;
+}
+/*=====================================================================*/
+.bloco_Pesquisa{
+    background:    rgba(1,54,94,0.8);
+    padding:       5pt 10pt;
+    margin:        10pt 0;
+    border-radius: 2pt;
+}
+.lb_pesquisa{
+    font-size: 1.2em;
+    margin:    4pt;
+}
+.cl_inpt{
+    border-radius: 3pt;
+    border:        none;
+    padding:       0 5pt;
+}
+.cl_inpt_sl{
+    padding: 2pt 5pt;
+}
+.botao_p{
+    border-radius: 3pt;
+    border: none;
     color: #fff;
-    font-family: 'Ibarra Real Nova', serif;
-    font-size: 16pt;
-    
+    margin: 5pt;    
 }
-.d_aba:hover{
-    color: #fff;
+#botao_de_pesquisa{
+    background: green;
 }
-/*==================linha de pesquisa===============================================================*/
-.butoesData{
-    margin-top:5pt;
-    margin-bottom:5pt;
+#reset_pesquisa{
+    background: red;
 }
-.pesquisaTabela{
-        color: #000;
-        margin-left: 10px;
-        font-family: 'Bebas Neue', cursive;
-        /*labels*/
-    }
-.inputPesquisa{
-    border:none;
-    border-bottom: 2px solid #000;
-    transition: 0.5s;
-    margin: 0pt;
-    margin-top: 5pt;
-    margin-bottom: 5pt;
-    /*input*/
-}
-.botaoPesquisaData{
-    border: 2px solid #000;
-    border-radius: 7px 0 0px 7px;
-}
-.botaoPesquisaData:hover{
-    background-color:#0F9E00    ;
-}
-.resetPagina{
-    border: 2px solid #000;
-    border-radius: 0px 7px 7px 0px;
-    background-color: transparent;
-}
-.resetPagina:hover{
-    background-color:red;
-}
-/*==================linha de pesquisa===============================================================*/
-/*===================================tabelas========================================================*/
-.tabelaStyle{
-    width: 100%;
-    overflow: auto;
-    margin: 0;
-    font-family: 'Bebas Neue', cursive;
-}
-.cabecalhoTabela{
-    background-color: #000;
-    color: #fff;
-    margin-top:0;
+/*=====================================================================*/
+.alerta_load{
+    position:   absolute;
+    z-index:    1;
+    width:      100%;
+    height:     100%;
+    background: rgba(0,0,0,0.8);
+    display:    none;
 }
 .divisao{
-    height: 100px;
-}
-.linhaTabela:hover{
-    background-color:#5A5C77;
-    color:#fff;
-    text-shadow: 0 2px 0 #000;
-}
-/*====================================modal delete==================================================*/
-.exclusaoModal{
-     background-color: #062d86;
-     background-image: url('../imagens/delete_modal.png');
-     background-repeat: no-repeat;
-     background-size: 50pt;
-     background-position: left;
-     color:#fff;
-}
-
-.excList:hover{
-    background-color: red;
+    background: #234f66;
+    text-align: center;
+    margin-top: 100pt;
+    border-radius: 4pt;
+    
 }
